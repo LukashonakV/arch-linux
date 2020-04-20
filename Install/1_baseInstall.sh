@@ -104,10 +104,10 @@ echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,cipher=aes-xts-plai
 echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		noauto" >> /etc/crypttab
 
 sed -i -r 's/^(# \/|UUID).*$//' /etc/fstab
-echo "/dev/mapper/root		/		ext4		defaults		0		1" >> /etc/fstab
-echo "/dev/mapper/cryptlvm		/boot		ext4		defaults		0		2" >> /etc/fstab
+echo "/dev/mapper/root		/		ext4		defaults,noatime		0		1" >> /etc/fstab
+echo "/dev/mapper/cryptlvm		/boot		ext4		defaults,noatime		0		2" >> /etc/fstab
 echo "/dev/mapper/swap		none		swap		sw		0		0" >> /etc/fstab
-echo "/dev/mapper/home		/home		ext4		defaults		0		2" >> /etc/fstab
+echo "/dev/mapper/home		/home		ext4		defaults,noatime		0		2" >> /etc/fstab
 
 grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
