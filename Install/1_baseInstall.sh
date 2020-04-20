@@ -99,13 +99,13 @@ sed -i 's/^GRUB_CMDLINE_LINUX.*/GRUB_CMDLINE_LINUX="rd.luks.name=$UUID_root=root
 echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
 echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home" >> /etc/crypttab
 
-sed -i -r 's/^(# \|UUID).*$//' /etc/fstab
+sed -i -r 's/^(# \/|UUID).*$//' /etc/fstab
 echo "/dev/mapper/root		/		ext4		defaults		0		1" >> /etc/fstab
 echo "/dev/mapper/cryptlvm		/boot		ext4		defaults		0		2" >> /etc/fstab
 echo "/dev/mapper/swap		none		swap		sw		0		0" >> /etc/fstab
 echo "/dev/mapper/home		/home		ext4		defaults		0		2" >> /etc/fstab
 
-grub-install --target=i386-pc --recheck /dev/sda
+grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
 echo "Enabling NetworkManager"
