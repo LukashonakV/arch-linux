@@ -43,7 +43,7 @@ UUID_root=`blkid -s UUID -o value /dev/$volume_group/cryptroot`
 UUID_boot=`blkid -s UUID -o value /dev/sda2`
 
 echo "Installing base packages"
-yes | pacstrap /mnt base linux linux-firmware
+yes | pacstrap /mnt base linux linux-firmware linux-lts
 
 echo "Installing additional packages"
 yes | pacstrap /mnt pacman-contrib lvm2 device-mapper intel-ucode cryptsetup networkmanager wget man vim sudo git grub
