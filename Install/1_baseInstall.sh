@@ -91,7 +91,7 @@ echo -en "$user_password\n$user_password" | passwd $user_name
 echo "$user_name ALL=(ALL) ALL" | EDITOR='tee -a' visudo
 
 echo "Initframs"
-sed -i 's/^HOOKS.*/HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt sd-lvm2 filesystems fsck)/' /etc/mkinitcpio.conf
+sed -i 's/^HOOKS.*/HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt sd-lvm2 resume filesystems fsck)/' /etc/mkinitcpio.conf
 sed -i 's/^MODULES.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
 mkinitcpio -p linux
 
