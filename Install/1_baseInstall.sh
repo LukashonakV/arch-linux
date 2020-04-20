@@ -4,10 +4,10 @@ encryption_passphrase_boot=$encryption_passphrase_root
 root_password=""
 user_name=""
 user_password=""
-volume_group="hpG"
-part_root_size="23"
+volume_group=""
+part_root_size="32"
 part_swap_size="2"
-host_name="vilu-test"
+host_name=""
 
 echo "Updating system clock"
 timedatectl set-ntp true
