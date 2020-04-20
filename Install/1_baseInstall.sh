@@ -58,7 +58,6 @@ cryptsetup -d /mnt/etc/luks-keys/home open /dev/$volume_group/crypthome home
 mkfs.ext4 /dev/mapper/home
 mount /dev/mapper/home /mnt/home
 
-
 echo "Configuring new system"
 arch-chroot /mnt /bin/bash <<EOF
 echo "Timezone"
@@ -98,7 +97,6 @@ sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
 sed -i 's/^GRUB_CMDLINE_LINUX.*/GRUB_CMDLINE_LINUX="rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root"/' /etc/default/grub
 sed -i 's/^GRUB_CMDLINE_LINUX.*[^"]/& rd.luks.name=$UUID_boot=cryptlvm/' /etc/default/grub
 
-
 echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
 echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home" >> /etc/crypttab
 
@@ -107,6 +105,9 @@ echo "/dev/mapper/root        /       ext4            defaults        0       1"
 echo "/dev/mapper/cryptlvm               /boot   ext4            defaults        0       2" >> /etc/fstab
 echo "/dev/mapper/swap        none    swap            sw              0       0" >> /etc/fstab
 echo "/dev/mapper/home        /home    ext4            defaults              0       2" >> /etc/fstab
+
+grub-install --target=i386-pc --recheck /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
 
 echo "Enabling NetworkManager"
 systemctl enable NetworkManager
