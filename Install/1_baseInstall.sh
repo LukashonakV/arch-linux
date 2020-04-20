@@ -100,8 +100,8 @@ sed -i 's/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/gru
 sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
 sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root rd.luks.name=$UUID_boot=cryptlvm resume=\/dev\/mapper\/swap rd.luks.options=discard\"/' /etc/default/grub
 
-echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
-echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		noauto" >> /etc/crypttab
+echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,discard,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
+echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		noauto,discard" >> /etc/crypttab
 
 sed -i -r 's/^(# \/|UUID).*$//' /etc/fstab
 echo "/dev/mapper/root		/		ext4		defaults,noatime		0		1" >> /etc/fstab
