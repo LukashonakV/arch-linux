@@ -1,4 +1,5 @@
 continent_city="Europe/Minsk"
+country_for_mirror="BY"
 encryption_passphrase_root=""
 encryption_passphrase_boot=$encryption_passphrase_root
 root_password=""
@@ -60,6 +61,9 @@ mount /dev/mapper/home /mnt/home
 
 echo "Configuring new system"
 arch-chroot /mnt /bin/bash <<EOF
+echo "MirrorList"
+curl -s "https://www.archlinux.org/mirrorlist/?country=$country_for_mirror&country=all&protocol=https&protocol=http&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors - > /etc/pacman.d/mirrorlist
+
 echo "Timezone"
 ln -sf /usr/share/zoneinfo/$continent_city /etc/localtime
 hwclock --systohc
