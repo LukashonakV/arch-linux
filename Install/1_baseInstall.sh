@@ -91,14 +91,14 @@ echo -en "$user_password\n$user_password" | passwd $user_name
 echo "$user_name ALL=(ALL) ALL" | EDITOR='tee -a' visudo
 
 echo "Initframs"
-sed -i 's/^HOOKS.*/HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt sd-lvm2 resume filesystems fsck)/' /etc/mkinitcpio.conf
+sed -i 's/^HOOKS.*/HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt sd-lvm2 filesystems fsck)/' /etc/mkinitcpio.conf
 sed -i 's/^MODULES.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
 mkinitcpio -p linux
 
 echo "Grub2"
 sed -i 's/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/grub
 sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
-sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root rd.luks.name=$UUID_boot=cryptlvm resume=\/dev\/mapper\/swap rd.luks.options=discard\"/' /etc/default/grub
+sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root rd.luks.name=$UUID_boot=cryptlvm resume=\/dev\/$volume_group\/swap rd.luks.options=discard\"/' /etc/default/grub
 
 echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,discard,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
 echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		noauto,discard" >> /etc/crypttab
