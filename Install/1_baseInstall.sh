@@ -69,7 +69,7 @@ cryptsetup -d /mnt/etc/luks-keys/home open /dev/$volume_group/crypthome home
 mkfs.ext4 /dev/mapper/home
 mount /dev/mapper/home /mnt/home
 
-if [ $with_hibernation -eq 1 ]
+if [[ with_hibernation -eq 1 ]]
 then
   echo "Installing swap for hibernation"
   dd if=/dev/random of=/mnt/etc/luks-keys/swap bs=1 count=256 status=progress
