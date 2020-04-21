@@ -43,10 +43,10 @@ UUID_root=`blkid -s UUID -o value /dev/$volume_group/cryptroot`
 UUID_boot=`blkid -s UUID -o value /dev/sda2`
 
 echo "Installing base packages"
-yes | pacstrap /mnt base linux linux-firmware linux-lts
+yes | pacstrap /mnt base linux linux-firmware intel-ucode
 
 echo "Installing additional packages"
-yes | pacstrap /mnt pacman-contrib lvm2 device-mapper intel-ucode cryptsetup networkmanager wget man vim sudo git grub
+yes | pacstrap /mnt pacman-contrib lvm2 device-mapper cryptsetup networkmanager wget man vim sudo git grub
 
 echo "Installing fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -98,7 +98,7 @@ mkinitcpio -p linux
 echo "Grub2"
 sed -i 's/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/grub
 sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
-sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root rd.luks.name=$UUID_boot=cryptlvm resume=\/dev\/$volume_group\/swap rd.luks.options=discard\"/' /etc/default/grub
+sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root rd.luks.name=$UUID_boot=cryptlvm rd.luks.options=discard\"/' /etc/default/grub
 
 echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,discard,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
 echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		noauto,discard" >> /etc/crypttab
