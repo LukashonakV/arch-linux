@@ -9,6 +9,7 @@ volume_group=""
 part_root_size="32"
 part_swap_size="2"
 host_name=""
+with_hibernation="1"
 
 echo "Updating system clock"
 timedatectl set-ntp true
@@ -59,6 +60,14 @@ cryptsetup -d /mnt/etc/luks-keys/home open /dev/$volume_group/crypthome home
 mkfs.ext4 /dev/mapper/home
 mount /dev/mapper/home /mnt/home
 
+if [ $with_hibernation -eq 1 ]
+then
+  echo "Installing swap for hibernation"
+  dd if=/dev/random of=/mnt/etc/luks-keys/swap bs=1 count=256 status=progress
+  printf "YES" | cryptsetup luksFormat -v /dev/$volume_group/cryptswap /mnt/etc/luks-keys/swap
+  cryptsetup -d /mnt/etc/luks-keys/swap open /dev/$volume_group/cryptswap swap
+fi
+
 echo "Configuring new system"
 arch-chroot /mnt /bin/bash <<EOF
 echo "MirrorList"
@@ -98,9 +107,20 @@ mkinitcpio -p linux
 echo "Grub2"
 sed -i 's/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/grub
 sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
-sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root rd.luks.name=$UUID_boot=cryptlvm rd.luks.options=discard\"/' /etc/default/grub
 
-echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,discard,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
+if [ $with_hibernation -eq 1]
+then
+  sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root resume=\/dev\/$volume_group\/cryptswap rd.luks.name=$UUID_boot=cryptlvm rd.luks.options=discard\"/' /etc/default/grub
+else
+  sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root rd.luks.name=$UUID_boot=cryptlvm rd.luks.options=discard\"/' /etc/default/grub
+fi
+
+if [ $with_hibernation -eq 1 ]
+then
+  echo "swap		/dev/$volume_group/cryptswap		/etc/luks-keys/swap		swap,discard" >> /etc/crypttab
+else
+  echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,discard,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
+fi
 echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		noauto,discard" >> /etc/crypttab
 
 sed -i -r 's/^(# \/|UUID).*$//' /etc/fstab
