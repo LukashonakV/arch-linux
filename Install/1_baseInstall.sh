@@ -11,13 +11,13 @@ part_swap_size="2"
 host_name=""
 with_hibernation="1"
 
-if [ $with_hibernation -eq 1 ]
+if [[ with_hibernation -eq 1 ]]
 then
-  hibernation_HOOK = "resume=\/dev\/$volume_group\/cryptswap"
-  hibernation_SWAP_crypt = "swap		/dev/$volume_group/cryptswap		/etc/luks-keys/swap		swap,discard"
+  hibernation_HOOK="resume=\/dev\/$volume_group\/cryptswap"
+  hibernation_SWAP_crypt="swap		/dev/$volume_group/cryptswap		/etc/luks-keys/swap		swap,discard"
 else
-  hibernation_HOOK = ""
-  hibernation_SWAP_crypt = "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,discard,cipher=aes-xts-plain64,size=256"
+  hibernation_HOOK=""
+  hibernation_SWAP_crypt="swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,discard,cipher=aes-xts-plain64,size=256"
 fi
 
 echo "Updating system clock"
