@@ -2,13 +2,23 @@ continent_city="Europe/Minsk"
 country_for_mirror="BY"
 encryption_passphrase_root=""
 encryption_passphrase_boot=$encryption_passphrase_root
-root_password=""
+root_password=$encryption_passphrase_root
 user_name=""
-user_password=""
+user_password=$encryption_passphrase_root
 volume_group=""
 part_root_size="32"
 part_swap_size="2"
 host_name=""
+with_hibernation="1"
+
+if [[ with_hibernation -eq 1 ]]
+then
+  hibernation_HOOK="resume=\/dev\/$volume_group\/cryptswap"
+  hibernation_SWAP_crypt="swap		/dev/$volume_group/cryptswap		/etc/luks-keys/swap		swap,discard"
+else
+  hibernation_HOOK=""
+  hibernation_SWAP_crypt="swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,discard,cipher=aes-xts-plain64,size=256"
+fi
 
 echo "Updating system clock"
 timedatectl set-ntp true
@@ -43,10 +53,10 @@ UUID_root=`blkid -s UUID -o value /dev/$volume_group/cryptroot`
 UUID_boot=`blkid -s UUID -o value /dev/sda2`
 
 echo "Installing base packages"
-yes | pacstrap /mnt base linux linux-firmware
+yes | pacstrap /mnt base linux linux-firmware intel-ucode
 
 echo "Installing additional packages"
-yes | pacstrap /mnt pacman-contrib lvm2 device-mapper intel-ucode cryptsetup networkmanager wget man vim sudo git grub
+yes | pacstrap /mnt pacman-contrib lvm2 device-mapper cryptsetup networkmanager wget man vim sudo git grub
 
 echo "Installing fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -58,6 +68,14 @@ printf "YES" | cryptsetup luksFormat -v /dev/$volume_group/crypthome /mnt/etc/lu
 cryptsetup -d /mnt/etc/luks-keys/home open /dev/$volume_group/crypthome home
 mkfs.ext4 /dev/mapper/home
 mount /dev/mapper/home /mnt/home
+
+if [[ with_hibernation -eq 1 ]]
+then
+  echo "Installing swap for hibernation"
+  dd if=/dev/random of=/mnt/etc/luks-keys/swap bs=1 count=256 status=progress
+  printf "YES" | cryptsetup luksFormat -v /dev/$volume_group/cryptswap /mnt/etc/luks-keys/swap
+  cryptsetup -d /mnt/etc/luks-keys/swap open /dev/$volume_group/cryptswap swap
+fi
 
 echo "Configuring new system"
 arch-chroot /mnt /bin/bash <<EOF
@@ -98,16 +116,16 @@ mkinitcpio -p linux
 echo "Grub2"
 sed -i 's/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/grub
 sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
-sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root rd.luks.name=$UUID_boot=cryptlvm\"/' /etc/default/grub
+sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root ${hibernation_HOOK} rd.luks.name=$UUID_boot=cryptlvm rd.luks.options=discard\"/' /etc/default/grub
 
-echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
-echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home" >> /etc/crypttab
+echo $hibernation_SWAP_crypt >> /etc/crypttab
+echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		noauto,discard" >> /etc/crypttab
 
 sed -i -r 's/^(# \/|UUID).*$//' /etc/fstab
-echo "/dev/mapper/root		/		ext4		defaults		0		1" >> /etc/fstab
-echo "/dev/mapper/cryptlvm		/boot		ext4		defaults		0		2" >> /etc/fstab
+echo "/dev/mapper/root		/		ext4		defaults,noatime		0		1" >> /etc/fstab
+echo "/dev/mapper/cryptlvm		/boot		ext4		defaults,noatime		0		2" >> /etc/fstab
 echo "/dev/mapper/swap		none		swap		sw		0		0" >> /etc/fstab
-echo "/dev/mapper/home		/home		ext4		defaults		0		2" >> /etc/fstab
+echo "/dev/mapper/home		/home		ext4		defaults,noatime		0		2" >> /etc/fstab
 
 grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
