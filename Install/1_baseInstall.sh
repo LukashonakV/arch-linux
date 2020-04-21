@@ -11,7 +11,7 @@ part_swap_size="2"
 host_name=""
 with_hibernation="1"
 
-If [ $with_hibernation -eq 1 ]
+if [ $with_hibernation -eq 1 ]
 then
   hibernation_HOOK = "resume=\/dev\/$volume_group\/cryptswap"
   hibernation_SWAP_crypt = "swap		/dev/$volume_group/cryptswap		/etc/luks-keys/swap		swap,discard"
