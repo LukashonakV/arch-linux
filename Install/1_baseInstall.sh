@@ -13,11 +13,9 @@ with_hibernation="1"
 
 if [[ with_hibernation -eq 1 ]]
 then
-  hibernation_HOOK="resume=\/dev\/$volume_group\/cryptswap"
-  hibernation_SWAP_crypt="swap		/dev/$volume_group/cryptswap		/etc/luks-keys/swap		swap,discard"
+  hibernation_HOOK="rd.luks.name=$UUID_swap=swap rd.luks.key=$UUID_swap=\/etc\/luks-keys\/swap rd.luks.options=$UUID_swap=keyfile-timeout=10s,swap resume=\/dev\/mapper\/swap"
 else
   hibernation_HOOK=""
-  hibernation_SWAP_crypt="swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,discard,cipher=aes-xts-plain64,size=256"
 fi
 
 echo "Updating system clock"
@@ -51,6 +49,7 @@ mount /dev/mapper/cryptlvm /mnt/boot
 
 UUID_root=`blkid -s UUID -o value /dev/$volume_group/cryptroot`
 UUID_boot=`blkid -s UUID -o value /dev/sda2`
+UUID_swap=`blkid -s UUID -o value /dev/$volume_group/cryptswap`
 
 echo "Installing base packages"
 yes | pacstrap /mnt base linux linux-firmware intel-ucode
@@ -111,6 +110,11 @@ echo "$user_name ALL=(ALL) ALL" | EDITOR='tee -a' visudo
 echo "Initframs"
 sed -i 's/^HOOKS.*/HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt sd-lvm2 filesystems fsck)/' /etc/mkinitcpio.conf
 sed -i 's/^MODULES.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
+if [[ with_hibernation -eq 1 ]]
+then
+  sed -i 's/^FILES.*/FILES=(/etc/luks-keys/swap)/' /etc/mkinitcpio.conf
+fi
+
 mkinitcpio -p linux
 
 echo "Grub2"
@@ -118,7 +122,10 @@ sed -i 's/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/gru
 sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
 sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root ${hibernation_HOOK} rd.luks.name=$UUID_boot=cryptlvm rd.luks.options=discard\"/' /etc/default/grub
 
-echo $hibernation_SWAP_crypt >> /etc/crypttab
+if [[ with_hibernation -nq 1 ]]
+then
+  echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,discard,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
+fi
 echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		noauto,discard" >> /etc/crypttab
 
 sed -i -r 's/^(# \/|UUID).*$//' /etc/fstab
