@@ -11,13 +11,6 @@ part_swap_size="2"
 host_name=""
 with_hibernation="1"
 
-if [[ with_hibernation -eq 1 ]]
-then
-  hibernation_HOOK="rd.luks.name=$UUID_swap=swap rd.luks.key=$UUID_swap=\/etc\/luks-keys\/swap rd.luks.options=$UUID_swap=keyfile-timeout=10s,swap resume=\/dev\/mapper\/swap"
-else
-  hibernation_HOOK=""
-fi
-
 echo "Updating system clock"
 timedatectl set-ntp true
 timedatectl set-timezone $continent_city
@@ -50,6 +43,13 @@ mount /dev/mapper/cryptlvm /mnt/boot
 UUID_root=`blkid -s UUID -o value /dev/$volume_group/cryptroot`
 UUID_boot=`blkid -s UUID -o value /dev/sda2`
 UUID_swap=`blkid -s UUID -o value /dev/$volume_group/cryptswap`
+
+if [[ with_hibernation -eq 1 ]]
+then
+  hibernation_HOOK="rd.luks.name=$UUID_swap=swap rd.luks.key=$UUID_swap=\/etc\/luks-keys\/swap rd.luks.options=$UUID_swap=keyfile-timeout=10s,swap resume=\/dev\/mapper\/swap"
+else
+  hibernation_HOOK=""
+fi
 
 echo "Installing base packages"
 yes | pacstrap /mnt base linux linux-firmware intel-ucode
@@ -120,7 +120,7 @@ mkinitcpio -p linux
 echo "Grub2"
 sed -i 's/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/grub
 sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
-sed -i "s/^GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root ${hibernation_HOOK} rd.luks.name=$UUID_boot=cryptlvm rd.luks.options=discard\"/" /etc/default/grub
+sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root $hibernation_HOOK rd.luks.name=$UUID_boot=cryptlvm rd.luks.options=discard\"/' /etc/default/grub
 
 if (( $with_hibernation != 1 ))
 then
