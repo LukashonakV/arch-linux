@@ -110,7 +110,7 @@ echo "$user_name ALL=(ALL) ALL" | EDITOR='tee -a' visudo
 echo "Initframs"
 sed -i 's/^HOOKS.*/HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt sd-lvm2 filesystems fsck)/' /etc/mkinitcpio.conf
 sed -i 's/^MODULES.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
-if [[ $with_hibernation -eq 1 ]]
+if (( $with_hibernation == 1 ))
 then
   sed -i 's/^FILES.*/FILES=(/etc/luks-keys/swap)/' /etc/mkinitcpio.conf
 fi
@@ -122,7 +122,7 @@ sed -i 's/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/gru
 sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
 sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root ${hibernation_HOOK} rd.luks.name=$UUID_boot=cryptlvm rd.luks.options=discard\"/' /etc/default/grub
 
-if [[ $with_hibernation -nq 1 ]]
+if (( $with_hibernation != 1 ))
 then
   echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,discard,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
 fi
