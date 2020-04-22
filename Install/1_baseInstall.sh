@@ -112,7 +112,7 @@ sed -i 's/^HOOKS.*/HOOKS=(base systemd autodetect keyboard sd-vconsole modconf b
 sed -i 's/^MODULES.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
 if (( $with_hibernation == 1 ))
 then
-  sed -i 's/^FILES.*/FILES=(/etc/luks-keys/swap)/' /etc/mkinitcpio.conf
+  sed -i 's/^FILES.*/FILES=(\/etc\/luks-keys\/swap)/' /etc/mkinitcpio.conf
 fi
 
 mkinitcpio -p linux
