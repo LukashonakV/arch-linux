@@ -40,17 +40,6 @@ mkfs.ext4 /dev/mapper/cryptlvm
 mkdir /mnt/boot
 mount /dev/mapper/cryptlvm /mnt/boot
 
-UUID_root=`blkid -s UUID -o value /dev/$volume_group/cryptroot`
-UUID_boot=`blkid -s UUID -o value /dev/sda2`
-UUID_swap=`blkid -s UUID -o value /dev/$volume_group/cryptswap`
-
-if [[ with_hibernation -eq 1 ]]
-then
-  hibernation_HOOK="rd.luks.name=$UUID_swap=swap rd.luks.key=$UUID_swap=\/etc\/luks-keys\/swap rd.luks.options=$UUID_swap=keyfile-timeout=10s,swap resume=\/dev\/mapper\/swap"
-else
-  hibernation_HOOK=""
-fi
-
 echo "Installing base packages"
 yes | pacstrap /mnt base linux linux-firmware intel-ucode
 
@@ -74,6 +63,15 @@ then
   dd if=/dev/random of=/mnt/etc/luks-keys/swap bs=1 count=256 status=progress
   printf "YES" | cryptsetup luksFormat -v /dev/$volume_group/cryptswap /mnt/etc/luks-keys/swap
   cryptsetup -d /mnt/etc/luks-keys/swap open /dev/$volume_group/cryptswap swap
+fi
+
+UUID_root=`blkid -s UUID -o value /dev/$volume_group/cryptroot`
+UUID_boot=`blkid -s UUID -o value /dev/sda2`
+UUID_swap=`blkid -s UUID -o value /dev/$volume_group/cryptswap`
+
+if [[ with_hibernation -eq 1 ]]
+then
+  hibernation_HOOK="rd.luks.name=$UUID_swap=swap rd.luks.key=$UUID_swap=\/etc\/luks-keys\/swap rd.luks.options=$UUID_swap=keyfile-timeout=10s,swap resume=\/dev\/mapper\/swap"
 fi
 
 echo "Configuring new system"
