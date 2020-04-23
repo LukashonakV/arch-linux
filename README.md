@@ -3,6 +3,7 @@ Set of install and configuration files
 
 ## Notation
 - Partition scheme full description https://wiki.archlinux.org/index.php/Partitioning#GUID_Partition_Table
+- Encrypting an entire system https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system
 ---
 ## Introduction
 - Modularity of the installation and configuration process
@@ -30,6 +31,12 @@ Chapter|      Object|       Description|
 ## Prerequisites
 - Download the freshet ISO Arch image [Arch ISO](https://www.archlinux.org/download/)
 - Free up necessary space on [SDA](#Notation)
+---
+## Technical details
+- To be able to open swap/home containers within booting without prompting of password there are appropriate file keys at /etc/luks-keys is used by the system.
+- For hibernation support encrypted swap container must be early opened. To reach this goal /etc/luks-keys/swap key file is embedded into initramfs.
+- When hibernation is OFF swap partition is mounted as plain encrypted with random UUID each boot.
+- To get more about encryption [see](#Notation)
 ---
 # 1. Base Installation
   ## 1.1 [Partition scheme](#Notation)
