@@ -1,19 +1,6 @@
-###############################################
-# General:
-#		Partitions:	sda1			-	Bios boot partition
-#								sda2			-	logical volume for the boot partition
-#								sda3			- volume group for the root,swap,home partitions
-#		Encryption:	sda2			- LUKS1. In purpose to be able to boot via GRUB
-#								For sda3 is used LUKS2 on LVM
-#								sda3:root	-	logical volume cryptroot with LUKS2 encryption
-#								sda3:home	-	logical volume crypthome with LUKS2 encryption
-#														(encryption_passphrase_home + keyfile for auto mounting within booting(/etc/luks-keys/home))
-#								sda3:swap	-	logical volume cryptswap with LUKS2 encryption
-#		Hibernation:
-#								0					- OFF. Swap is mounted with random UUID within booting.
-#								1					- ON. Actual for laptops. Swap is mounted with static UUID.
-#														keyfile(/etc/luks-keys/swap) is used within booting. keyfiles is embedded into initframs.
-###############################################
+################################################################################
+# To get details about variables visit https://github.com/lukashonak/arch-linux#
+################################################################################
 #	Variables area
 continent_city="Europe/Minsk"
 country_for_mirror="BY"
