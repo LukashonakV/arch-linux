@@ -8,10 +8,15 @@ Set of install and configuration files
 - Modularity of the installation and configuration process
 - Full disk encryption
 - Separate password for each encrypted container
-- Mounting home partition with the key file
+- Auto mounting home partition with the key file
 - Hibernation support
 - Mirror list ordered by the fastest to lowest
 - Continuous TRIM
 - Intel microcode
 - systemd system and service manager
 - {Partition scheme}: BIOS/GPT.
+
+## Requirements
+- TRIM compatible SSD
+- Intel CPU
+- Unallocated SDA area
