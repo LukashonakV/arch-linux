@@ -56,4 +56,7 @@ Chapter|      Object|       Description|
    > - user_name. Defines user name for th new user.
    > - user_password. Is used to set encryption password for the new user. The same as encryption_passphrase_root by default.
    > - volume_group. Defines volume group name to store root,swap,home logical volumes. For example: vg0
-   > - part_root_size. Gigabytes reserved for the root [partition](#Notation). 
+   > - part_root_size. Gigabytes reserved for the root [partition](#Notation).
+   > - part_swap_size. Gigabytes reserved for the swap [partition](#Notation).
+   > - host_name. Defines machines host name.
+   > - with_hibernation. Turns ON/OFF special setup in hibernation purpose for.
