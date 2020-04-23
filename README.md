@@ -13,6 +13,7 @@ Set of install and configuration files
 - Mirror list ordered by the fastest to lowest
 - Continuous TRIM
 - Intel microcode
+- Grub multi-boot loader
 - systemd system and service manager
 - {Partition scheme}: BIOS/GPT.
 
