@@ -2,6 +2,7 @@ continent_city="Europe/Minsk"
 country_for_mirror="BY"
 encryption_passphrase_root=""
 encryption_passphrase_boot=$encryption_passphrase_root
+encryption_passphrase_home=$encryption_passphrase_root
 root_password=$encryption_passphrase_root
 user_name=""
 user_password=$encryption_passphrase_root
@@ -52,7 +53,8 @@ genfstab -U /mnt >> /mnt/etc/fstab
 echo "Installing home partition"
 mkdir -m 700 /mnt/etc/luks-keys
 dd if=/dev/random of=/mnt/etc/luks-keys/home bs=1 count=256 status=progress
-printf "YES" | cryptsetup luksFormat -v /dev/$volume_group/crypthome /mnt/etc/luks-keys/home
+printf "%s" "$encryption_passphrase_home" | cryptsetup luksFormat /dev/$volume_group/crypthome
+printf "%s" "$encryption_passphrase_home" | cryptsetup luksAddKey /dev/$volume_group/crypthome /mnt/etc/luks-keys/home
 cryptsetup -d /mnt/etc/luks-keys/home open /dev/$volume_group/crypthome home
 mkfs.ext4 /dev/mapper/home
 mount /dev/mapper/home /mnt/home
