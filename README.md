@@ -48,7 +48,7 @@ Chapter|      Object|       Description|
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─home|ext4|1.0|/home|
    ## 1.2 Variables
    > - continent_city. Is used to set machine zone. See [Arch time zone](https://wiki.archlinux.org/index.php/System_time#Time_zone)
-   > - country_for_mirror. Is used to set mirror servers. See [Arch_time_zone](https://wiki.archlinux.org/index.php/Mirrors)
+   > - country_for_mirror. Is used to set mirror servers. See [Arch_mirrors](https://wiki.archlinux.org/index.php/Mirrors)
    > - encryption_passphrase_root. Is used to set encryption password for the root container.
    > - encryption_passphrase_boot. Is used to set encryption password for the boot container. The same as encryption_passphrase_root by default.
    > - encryption_passphrase_home. Is used to set encryption password for the home container. The same as encryption_passphrase_root by default.
