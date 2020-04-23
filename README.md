@@ -60,3 +60,9 @@ Chapter|      Object|       Description|
    > - part_swap_size. Gigabytes reserved for the swap [partition](#Notation).
    > - host_name. Defines machines host name.
    > - with_hibernation. Turns ON/OFF special setup in hibernation purpose for.
+   ## 1.3 Installation
+   - Boot into Arch ISO
+   - Download Install/1_baseInstall.sh via wget https://raw.githubusercontent.com/lukashonak/arch-linux/master/Install/1_baseInstall.sh
+   - Define all variables using favorite editor(vim,nano,etc...)
+   - Make file executable using chmod +x 1_baseInstall.sh
+   - Execute it using ./1_baseInstall.sh. For to get install.log use ./1_baseInstall.sh >> install.log
