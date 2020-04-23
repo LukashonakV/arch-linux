@@ -34,9 +34,10 @@ Chapter|      Object|       Description|
 ---
 ## Technical details
 - To be able to open swap/home containers within booting without prompting of password there are appropriate file keys at /etc/luks-keys is used by the system.
+- In additional home container can be encrypted with the encryption_passphrase_home.
 - For hibernation support encrypted swap container must be early opened. To reach this goal /etc/luks-keys/swap key file is embedded into initramfs.
 - When hibernation is OFF swap partition is mounted as plain encrypted with random UUID each boot.
-- To get more about encryption [see](#Notation)
+- To get more about encryption [see](#Notation).
 ---
 # 1. Base Installation
   ## 1.1 [Partition scheme](#Notation)
