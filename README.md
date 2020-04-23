@@ -2,7 +2,7 @@
 Set of install and configuration files
 
 ## Notation
-- # Partition scheme full description https://wiki.archlinux.org/index.php/Partitioning#GUID_Partition_Table
+- #Partition scheme full description https://wiki.archlinux.org/index.php/Partitioning#GUID_Partition_Table
 ---
 ## Introduction
 - Modularity of the installation and configuration process
@@ -28,7 +28,7 @@ Chapter|      Object|       Description|
 | 1. Base Installation|   1_baseInstall.sh|Install base clean system on Unalocated SDA area|
 ---
 # 1. Base Installation
-  ## 1.1 [Partition_scheme](#partition_scheme)
+  ## 1.1 [Partition_scheme](#partition-scheme)
   |NAME|FSTYPE|FSVER|MOUNTPOINT|
   | --- | --- | --- | --- |
   |sda|||
