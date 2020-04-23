@@ -28,7 +28,7 @@ Chapter|      Object|       Description|
 | 1. Base Installation|   1_baseInstall.sh|Install base clean system on Unalocated SDA area|
 ---
 # 1. Base Installation
-  ## 1.1 [Markdown - Summary](#Getting-started-with-Markdown) Partition_scheme
+  ## 1.1 [Markdown - Summary](#Notation) Partition_scheme
   |NAME|FSTYPE|FSVER|MOUNTPOINT|
   | --- | --- | --- | --- |
   |sda|||
