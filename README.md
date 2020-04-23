@@ -2,7 +2,7 @@
 Set of install and configuration files
 
 ## Notation
-- Partition scheme full description https://wiki.archlinux.org/index.php/Partitioning#GUID_Partition_Table
+- Partition scheme full description https://wiki.archlinux.org/index.php/Partitioning
 - Encrypting an entire system https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system
 ---
 ## Introduction
