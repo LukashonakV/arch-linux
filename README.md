@@ -2,7 +2,7 @@
 Set of install and configuration files
 
 ## Notation
-- #Partition scheme full description https://wiki.archlinux.org/index.php/Partitioning#GUID_Partition_Table
+- # Partition scheme full description https://wiki.archlinux.org/index.php/Partitioning#GUID_Partition_Table
 ---
 ## Introduction
 - Modularity of the installation and configuration process
