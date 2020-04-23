@@ -137,7 +137,7 @@ then
 fi
 echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		noauto,discard" >> /etc/crypttab
 
-sed -i -r 's/^(# \/|UUID).*$//' /etc/fstab
+sed -i -r '/^(# \/|UUID)/d' /etc/fstab
 echo "/dev/mapper/root		/		ext4		defaults,noatime		0		1" >> /etc/fstab
 echo "/dev/mapper/cryptlvm		/boot		ext4		defaults,noatime		0		2" >> /etc/fstab
 echo "/dev/mapper/swap		none		swap		sw		0		0" >> /etc/fstab
