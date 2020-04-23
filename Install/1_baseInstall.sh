@@ -1,24 +1,27 @@
 ################################################################################
 # To get details about variables visit https://github.com/lukashonak/arch-linux#
 ################################################################################
-#	Variables area
+#Variables area
 continent_city="Europe/Minsk"
 country_for_mirror="BY"
-#	Passwords set for the partition encryption. By default the same for all partitions.
+
+#Passwords set for the partition encryption. By default the same for all partitions.
 encryption_passphrase_root=""
 encryption_passphrase_boot=$encryption_passphrase_root
 encryption_passphrase_home=$encryption_passphrase_root
 root_password=$encryption_passphrase_root
-# User setting block
+
+#User setting block
 user_name=""
 user_password=$encryption_passphrase_root
-#	Name of the LVM group
+
+#Name of the LVM group
 volume_group=""
-#	Size for root partition. See Aarch recommendations here: https://wiki.archlinux.org/index.php/Partitioning#GUID_Partition_Table
+#Size for root partition.
 part_root_size="32"
 part_swap_size="2"
 host_name=""
-# See General info on top
+#See General info on top
 with_hibernation="1"
 ###############################################
 echo "Updating system clock"
@@ -130,6 +133,7 @@ echo "Grub2"
 sed -i 's/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/grub
 sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
 sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root $hibernation_HOOK rd.luks.name=$UUID_boot=cryptlvm rd.luks.options=discard\"/' /etc/default/grub
+sed -i 's/^#GRUB_BACKGROUND.*$/GRUB_BACKGROUND="\/boot\/grub\/themes\/starfield\/starfield.png"/' /etc/default/grub
 
 if (( $with_hibernation != 1 ))
 then
