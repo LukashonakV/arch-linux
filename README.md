@@ -15,7 +15,7 @@ Set of install and configuration files
 - Intel microcode
 - Grub multi-boot loader
 - systemd system and service manager
-- {Partition scheme}: BIOS/GPT.
+- [Partition scheme](#Notation): BIOS/GPT.
 ---
 ## Requirements
 - TRIM compatible SSD
