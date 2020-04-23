@@ -34,9 +34,12 @@ Chapter|      Object|       Description|
   |sda|||
   ├─sda1|||
   ├─sda2|crypto|1|
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└sda2|ext4|1.0|/boot
+  &nbsp;&nbsp;&nbsp;&nbsp;└sda2|ext4|1.0|/boot
   └─sda3|LVM2_m|LVM2|
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─{volume_group}-cryptroot|||
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─{volume_group}-cryptswap|||
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─{volume_group}-crypthome|||
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─{volume_group}-cryptroot|crypto|2|
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─root|ext4|1.0|/|
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─{volume_group}-cryptswap|crypto|2|
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─swap|swap|1|\[SWAP\]|
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─{volume_group}-crypthome|crypto|2|
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─home|ext4|1.0|/home|
   
