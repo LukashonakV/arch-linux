@@ -32,7 +32,7 @@ Chapter|      Object|       Description|
 - Free up necessary space on [SDA](#Notation)
 ---
 # 1. Base Installation
-  >## 1.1 [Partition scheme](#Notation)
+  ## 1.1 [Partition scheme](#Notation)
   |NAME|FSTYPE|FSVER|MOUNTPOINT|
   | --- | --- | --- | --- |
   |sda|||
@@ -46,7 +46,7 @@ Chapter|      Object|       Description|
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─swap|swap|1|\[SWAP\]|
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─{volume_group}-crypthome|crypto|2|
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─home|ext4|1.0|/home|
-   >## 1.2 Variables
+   ## 1.2 Variables
    > - continent_city. Is used to set machine zone. See [Arch time zone](https://wiki.archlinux.org/index.php/System_time#Time_zone)
    > - country_for_mirror. Is used to set mirror servers. See [Arch_mirrors](https://wiki.archlinux.org/index.php/Mirrors)
    > - encryption_passphrase_root. Is used to set encryption password for the root container.
@@ -60,7 +60,7 @@ Chapter|      Object|       Description|
    > - part_swap_size. Gigabytes reserved for the swap [partition](#Notation).
    > - host_name. Defines machines host name.
    > - with_hibernation. Turns ON/OFF special setup in hibernation purpose for.
-   >## 1.3 Installation
+   ## 1.3 Installation
    - Boot into Arch ISO
    - Download Install/1_baseInstall.sh via wget https://raw.githubusercontent.com/lukashonak/arch-linux/master/Install/1_baseInstall.sh
    - Define all variables using favorite editor(vim,nano,etc...)
