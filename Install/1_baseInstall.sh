@@ -67,7 +67,7 @@ then
 fi
 
 echo "Installing additional packages"
-($addition_packages)
+eval $addition_packages
 
 echo "Installing fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
