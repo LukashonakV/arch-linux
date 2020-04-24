@@ -72,12 +72,6 @@ eval $addition_packages
 echo "Installing fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
 
-if [[ with_firewall -eq 1 ]]
-then
-  printf "%s" "$repo_git_path\/1_2_firewallSetup.sh" | wget
-  ./1_2_firewallSetup.sh '/mnt/etc/nftables.conf'
-fi
-
 echo "Installing home partition"
 mkdir -m 700 /mnt/etc/luks-keys
 dd if=/dev/random of=/mnt/etc/luks-keys/home bs=1 count=256 status=progress
@@ -102,6 +96,15 @@ UUID_swap=`blkid -s UUID -o value /dev/$volume_group/cryptswap`
 if [[ with_hibernation -eq 1 ]]
 then
   hibernation_HOOK="rd.luks.name=$UUID_swap=swap rd.luks.key=$UUID_swap=\/etc\/luks-keys\/swap rd.luks.options=$UUID_swap=keyfile-timeout=10s,swap resume=\/dev\/mapper\/swap"
+fi
+
+mkdir /mnt/Install
+
+if [[ with_firewall -eq 1 ]]
+then
+  eval "wget $repo_git_path\/1_2_firewallSetup.sh"
+  cp 1_2_firewallSetup.sh /mnt/Install
+  chmod +x /mnt/Install/1_2_firewallSetup.sh
 fi
 
 echo "Configuring new system"
@@ -165,6 +168,11 @@ echo "/dev/mapper/home		/home		ext4		defaults,noatime		0		2" >> /etc/fstab
 
 grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
+
+if (( $with_firewall = 1 ))
+then
+  /Install/1_2_firewallSetup.sh '/etc/nftables.conf'
+fi
 
 echo "Enabling NetworkManager"
 systemctl enable NetworkManager
