@@ -23,6 +23,11 @@ part_swap_size="2"
 host_name=""
 #See General info on top
 with_hibernation="1"
+with_firewall="1"
+###############################################
+#Tech variables. Don't touch
+repo_git_path='https://raw.githubusercontent.com/lukashonak/arch-linux/master/Install'
+addition_packages='yes | pacstrap /mnt pacman-contrib lvm2 device-mapper cryptsetup networkmanager wget man vim sudo git grub'
 ###############################################
 echo "Updating system clock"
 timedatectl set-ntp true
@@ -56,11 +61,22 @@ mount /dev/mapper/cryptlvm /mnt/boot
 echo "Installing base packages"
 yes | pacstrap /mnt base linux linux-firmware intel-ucode
 
+if [[ with_firewall -eq 1 ]]
+then
+  addition_packages="$addition_packages nftables"
+fi
+
 echo "Installing additional packages"
-yes | pacstrap /mnt pacman-contrib lvm2 device-mapper cryptsetup networkmanager wget man vim sudo git grub
+($addition_packages)
 
 echo "Installing fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
+
+if [[ with_firewall -eq 1 ]]
+then
+  printf "%s" "$repo_git_path\/1_2_firewallSetup.sh" | wget
+  ./1_2_firewallSetup.sh '/mnt/etc/nftables.conf'
+fi
 
 echo "Installing home partition"
 mkdir -m 700 /mnt/etc/luks-keys
