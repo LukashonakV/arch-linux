@@ -171,9 +171,9 @@ sed -i 's/^#GRUB_BACKGROUND.*$/GRUB_BACKGROUND="\/boot\/grub\/themes\/starfield\
 
 if (( $with_hibernation != 1 ))
 then
-  echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		$discard_FSTAB swap,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
+  echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		$discard_FSTAB""swap,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
 fi
-echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		$discard_FSTAB noauto" >> /etc/crypttab
+echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		$discard_FSTAB""noauto" >> /etc/crypttab
 
 sed -i -r '/^(# \/|UUID)/d' /etc/fstab
 echo "/dev/mapper/root		/		ext4		defaults,noatime		0		1" >> /etc/fstab
