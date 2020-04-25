@@ -94,6 +94,7 @@ then
   dd if=/dev/random of=/mnt/etc/luks-keys/swap bs=1 count=256 status=progress
   printf "YES" | cryptsetup luksFormat -v /dev/$volume_group/cryptswap /mnt/etc/luks-keys/swap
   cryptsetup -d /mnt/etc/luks-keys/swap open /dev/$volume_group/cryptswap swap
+  mkswap /dev/mapper/swap
 fi
 
 UUID_root=`blkid -s UUID -o value /dev/$volume_group/cryptroot`
