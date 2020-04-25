@@ -26,9 +26,9 @@ Set of install and configuration files
 ---
 ## Content
 Chapter|      Object|       Description|
-|:---:|---:|:---:|
+|:---:|:---:|:---:|
 | 1. Base Installation|   1_baseInstall.sh|Install base clean system on Unalocated SDA area|
-| 1. Base Installation|   1_2_firewallSetup.sh|Configures standart base firewall. nftables approach|
+| 1. Base Installation|   1_2_firewallSetup.sh|Configures standart base firewall(nftables approach)|
 ---
 ## Prerequisites
 - Download the freshet ISO Arch image [Arch ISO](https://www.archlinux.org/download/)
