@@ -111,36 +111,36 @@ fi
 
 echo "Configuring new system"
 arch-chroot /mnt /bin/bash <<EOF
-echo "MirrorList"
+echo "Setup MirrorList"
 curl -s "https://www.archlinux.org/mirrorlist/?country=$country_for_mirror&country=all&protocol=https&protocol=http&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors - > /etc/pacman.d/mirrorlist
 
-echo "Timezone"
+echo "Setup Timezone"
 ln -sf /usr/share/zoneinfo/$continent_city /etc/localtime
 hwclock --systohc
 
-echo "Localization"
+echo "Setup Localization"
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "KEYMAP=us" > /etc/vconsole.conf
 
-echo "Network"
+echo "Setup Network"
 echo $host_name > /etc/hostname
 echo "127.0.0.1		localhost" >> /etc/hosts
 echo "::1		localhost" >> /etc/hosts
 echo "127.0.0.1		$host_name.localdomain		$host_name" >> /etc/hosts
 
-echo "root password"
+echo "Setup root password"
 echo -en "$root_password\n$root_password" | passwd
 
-echo "Creating new user"
+echo "Setup new user"
 useradd -m -G wheel -s /bin/bash $user_name
 usermod -a -G video $user_name
 echo -en "$user_password\n$user_password" | passwd $user_name
 echo "$user_name ALL=(ALL) ALL" | EDITOR='tee -a' visudo
 
-echo "Initframs"
+echo "Setup Initframs"
 sed -i 's/^HOOKS.*/HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt sd-lvm2 filesystems fsck)/' /etc/mkinitcpio.conf
 sed -i 's/^MODULES.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
 if (( $with_hibernation == 1 ))
@@ -150,7 +150,7 @@ fi
 
 mkinitcpio -p linux
 
-echo "Grub2"
+echo "Setup Grub2"
 sed -i 's/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/grub
 sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
 sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root $hibernation_HOOK rd.luks.name=$UUID_boot=cryptlvm rd.luks.options=discard\"/' /etc/default/grub
@@ -173,11 +173,11 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 if (( $with_firewall == 1 ))
 then
-  echo "Configuring FireWall"
+  echo "Setup FireWall"
   /Install/1_2_firewallSetup.sh '/etc/nftables.conf'
 fi
 
-echo "Enabling NetworkManager"
+echo "Setup NetworkManager"
 systemctl enable NetworkManager
 EOF
 
