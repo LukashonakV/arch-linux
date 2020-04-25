@@ -166,14 +166,14 @@ mkinitcpio -p linux
 echo "Setup Grub2"
 sed -i 's/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/grub
 sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
-sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root$hibernation_HOOK rd.luks.name=$UUID_boot=cryptlvm\$discard_HOOK0"/' /etc/default/grub
+sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root$hibernation_HOOK rd.luks.name=$UUID_boot=cryptlvm\$discard_HOOK"/' /etc/default/grub
 sed -i 's/^#GRUB_BACKGROUND.*$/GRUB_BACKGROUND="\/boot\/grub\/themes\/starfield\/starfield.png"/' /etc/default/grub
 
 if (( $with_hibernation != 1 ))
 then
-  echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		$discard_FSTABswap,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
+  echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		$discard_FSTAB swap,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
 fi
-echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		$discard_FSTABnoauto" >> /etc/crypttab
+echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		$discard_FSTAB noauto" >> /etc/crypttab
 
 sed -i -r '/^(# \/|UUID)/d' /etc/fstab
 echo "/dev/mapper/root		/		ext4		defaults,noatime		0		1" >> /etc/fstab
