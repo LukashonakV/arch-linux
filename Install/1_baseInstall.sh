@@ -1,3 +1,4 @@
+#!/bin/bash
 ################################################################################
 # To get details about variables visit https://github.com/lukashonak/arch-linux#
 ################################################################################
@@ -26,6 +27,8 @@ with_hibernation="1"
 with_firewall="1"
 #Disk type
 disk_type="sda"
+#tmp to tmpfs in Gb
+tmpfs_size="0"
 ###############################################
 #Tech variables. Don't touch
 repo_git_path='https://raw.githubusercontent.com/lukashonak/arch-linux/master/Install'
@@ -185,6 +188,11 @@ echo "/dev/mapper/root		/		ext4		defaults,noatime		0		1" >> /etc/fstab
 echo "/dev/mapper/cryptlvm		/boot		ext4		defaults,noatime		0		2" >> /etc/fstab
 echo "/dev/mapper/swap		none		swap		sw		0		0" >> /etc/fstab
 echo "/dev/mapper/home		/home		ext4		defaults,noatime		0		2" >> /etc/fstab
+
+if (( $tmpfs_size > 0 ))
+then
+  echo "tmpfs /tmp tmpfs nodev,nosuid,size=$tmpfs_size""G 0 0" >> /etc/fstab
+fi
 
 grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
