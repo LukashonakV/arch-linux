@@ -17,6 +17,7 @@ Set of install and configuration files
 - Grub multi-boot loader
 - systemd system and service manager
 - [Partition scheme](#Notation): BIOS/GPT.
+- Firewall support
 ---
 ## Requirements
 - TRIM compatible SSD
@@ -27,6 +28,7 @@ Set of install and configuration files
 Chapter|      Object|       Description|
 |:---:|---:|:---:|
 | 1. Base Installation|   1_baseInstall.sh|Install base clean system on Unalocated SDA area|
+| 1. Base Installation|   1_2_firewallSetup.sh|Configures standart base firewall. nftables approach|
 ---
 ## Prerequisites
 - Download the freshet ISO Arch image [Arch ISO](https://www.archlinux.org/download/)
@@ -68,6 +70,7 @@ Chapter|      Object|       Description|
    > - part_swap_size. Gigabytes reserved for the swap [partition](#Notation).
    > - host_name. Defines machines host name.
    > - with_hibernation. Turns ON/OFF special setup in hibernation purpose for.
+   > - with_firewall. Turns ON/OFF firewall setup. See [Arch firewall](https://wiki.archlinux.org/index.php/Category:Firewalls)
    ## 1.3 Installation
    - Boot into Arch ISO
    - Download Install/1_baseInstall.sh via wget https://raw.githubusercontent.com/lukashonak/arch-linux/master/Install/1_baseInstall.sh
