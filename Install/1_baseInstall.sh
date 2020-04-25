@@ -24,6 +24,8 @@ host_name=""
 #See General info on top
 with_hibernation="1"
 with_firewall="1"
+#Disk type
+disk_type="sda"
 ###############################################
 #Tech variables. Don't touch
 repo_git_path='https://raw.githubusercontent.com/lukashonak/arch-linux/master/Install'
@@ -34,17 +36,17 @@ timedatectl set-ntp true
 timedatectl set-timezone $continent_city
 
 echo "Creating partition tables"
-printf "n\n1\n2048\n+1M\nef02\nw\ny\n" | gdisk /dev/sda
-printf "n\n2\n\n+500M\n8309\nw\ny\n" | gdisk /dev/sda
-printf "n\n3\n\n\n8e00\nw\ny\n" | gdisk /dev/sda
+printf "n\n1\n2048\n+1M\nef02\nw\ny\n" | gdisk /dev/"$disk_type"
+printf "n\n2\n\n+500M\n8309\nw\ny\n" | gdisk /dev/"$disk_type"
+printf "n\n3\n\n\n8e00\nw\ny\n" | gdisk /dev/"$disk_type"
 
 echo "Crypting boot partition with luks1"
-printf "%s" "$encryption_passphrase_boot" | cryptsetup luksFormat --type luks1 /dev/sda2
-printf "%s" "$encryption_passphrase_boot" | cryptsetup luksOpen /dev/sda2 cryptlvm
+printf "%s" "$encryption_passphrase_boot" | cryptsetup luksFormat --type luks1 /dev/"$disk_type"2
+printf "%s" "$encryption_passphrase_boot" | cryptsetup luksOpen /dev/"$disk_type"2 cryptlvm
 
 echo "Creating and crypting LVM with luks2. LUKS on LVM"
-pvcreate /dev/sda3
-vgcreate $volume_group /dev/sda3
+pvcreate /dev/"$disk_type"3
+vgcreate $volume_group /dev/"$disk_type"3
 lvcreate -L "$part_root_size"GB -n cryptroot $volume_group
 lvcreate -C y -L "$part_swap_size"GB -n cryptswap $volume_group
 lvcreate -l 100%FREE -n crypthome $volume_group
@@ -140,8 +142,11 @@ usermod -a -G video $user_name
 echo -en "$user_password\n$user_password" | passwd $user_name
 echo "$user_name ALL=(ALL) ALL" | EDITOR='tee -a' visudo
 
-echo "Setup TRIM for LVM"
-sed -i 's/issue_discards = 0/issue_discards = 1/' /etc/lvm/lvm.conf
+if (( $disk_type == "sda" ))
+then
+  echo "Setup TRIM for LVM"
+  sed -i 's/issue_discards = 0/issue_discards = 1/' /etc/lvm/lvm.conf
+fi
 
 echo "Setup Initframs"
 sed -i 's/^HOOKS.*/HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt sd-lvm2 filesystems fsck)/' /etc/mkinitcpio.conf
