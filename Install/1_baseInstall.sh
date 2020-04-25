@@ -152,6 +152,10 @@ if (( $disk_type == "sda" ))
 then
   echo "Setup TRIM for LVM"
   sed -i 's/issue_discards = 0/issue_discards = 1/' /etc/lvm/lvm.conf
+  
+  echo "Setup swappiness for SDA"
+  echo 'vm.swappiness=1' >> /etc/sysctl.d/40-swappiness.conf
+  echo 'vm.vfs_cache_pressure=50' >> /etc/sysctl.d/40-swappiness.conf
 fi
 
 echo "Setup Initframs"
