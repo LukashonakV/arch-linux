@@ -30,6 +30,11 @@ disk_type="sda"
 #Tech variables. Don't touch
 repo_git_path='https://raw.githubusercontent.com/lukashonak/arch-linux/master/Install'
 addition_packages='yes | pacstrap /mnt pacman-contrib lvm2 device-mapper cryptsetup networkmanager wget man vim sudo git grub'
+if [[ disk_type -eq "sda" ]]
+then
+  discard_HOOK=" rd.luks.options=discard"
+  discard_FSTAB="discard,"
+fi
 ###############################################
 echo "Updating system clock"
 timedatectl set-ntp true
@@ -97,7 +102,7 @@ UUID_swap=`blkid -s UUID -o value /dev/$volume_group/cryptswap`
 
 if [[ with_hibernation -eq 1 ]]
 then
-  hibernation_HOOK="rd.luks.name=$UUID_swap=swap rd.luks.key=$UUID_swap=\/etc\/luks-keys\/swap rd.luks.options=$UUID_swap=keyfile-timeout=10s,swap resume=\/dev\/mapper\/swap"
+  hibernation_HOOK=" rd.luks.name=$UUID_swap=swap rd.luks.key=$UUID_swap=\/etc\/luks-keys\/swap rd.luks.options=$UUID_swap=keyfile-timeout=10s,swap resume=\/dev\/mapper\/swap"
 fi
 
 echo "Creating Install directory"
@@ -161,14 +166,14 @@ mkinitcpio -p linux
 echo "Setup Grub2"
 sed -i 's/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/grub
 sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
-sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root $hibernation_HOOK rd.luks.name=$UUID_boot=cryptlvm rd.luks.options=discard\"/' /etc/default/grub
+sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root$hibernation_HOOK rd.luks.name=$UUID_boot=cryptlvm\$discard_HOOK0"/' /etc/default/grub
 sed -i 's/^#GRUB_BACKGROUND.*$/GRUB_BACKGROUND="\/boot\/grub\/themes\/starfield\/starfield.png"/' /etc/default/grub
 
 if (( $with_hibernation != 1 ))
 then
-  echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		swap,discard,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
+  echo "swap		/dev/$volume_group/cryptswap		/dev/urandom		$discard_FSTABswap,cipher=aes-xts-plain64,size=256" >> /etc/crypttab
 fi
-echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		noauto,discard" >> /etc/crypttab
+echo "home		/dev/$volume_group/crypthome		/etc/luks-keys/home		$discard_FSTABnoauto" >> /etc/crypttab
 
 sed -i -r '/^(# \/|UUID)/d' /etc/fstab
 echo "/dev/mapper/root		/		ext4		defaults,noatime		0		1" >> /etc/fstab
