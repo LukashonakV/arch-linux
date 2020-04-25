@@ -98,10 +98,12 @@ then
   hibernation_HOOK="rd.luks.name=$UUID_swap=swap rd.luks.key=$UUID_swap=\/etc\/luks-keys\/swap rd.luks.options=$UUID_swap=keyfile-timeout=10s,swap resume=\/dev\/mapper\/swap"
 fi
 
+echo "Creating Install directory"
 mkdir /mnt/Install
 
 if [[ with_firewall -eq 1 ]]
 then
+  echo "Getting FireWall setup script"
   eval "wget $repo_git_path\/1_2_firewallSetup.sh"
   cp 1_2_firewallSetup.sh /mnt/Install
   chmod +x /mnt/Install/1_2_firewallSetup.sh
@@ -171,6 +173,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 if (( $with_firewall == 1 ))
 then
+  echo "Configuring FireWall"
   /Install/1_2_firewallSetup.sh '/etc/nftables.conf'
 fi
 
