@@ -166,7 +166,7 @@ mkinitcpio -p linux
 echo "Setup Grub2"
 sed -i 's/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/grub
 sed -i 's/^GRUB_PRELOAD_MODULES=.*[^"]/& lvm/' /etc/default/grub
-sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root$hibernation_HOOK rd.luks.name=$UUID_boot=cryptlvm\$discard_HOOK"/' /etc/default/grub
+sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX=\"rd.luks.name=$UUID_root=root root=\/dev\/mapper\/root$hibernation_HOOK rd.luks.name=$UUID_boot=cryptlvm$discard_HOOK\"/' /etc/default/grub
 sed -i 's/^#GRUB_BACKGROUND.*$/GRUB_BACKGROUND="\/boot\/grub\/themes\/starfield\/starfield.png"/' /etc/default/grub
 
 if (( $with_hibernation != 1 ))
