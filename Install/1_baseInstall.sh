@@ -169,7 +169,7 @@ echo "/dev/mapper/home		/home		ext4		defaults,noatime		0		2" >> /etc/fstab
 grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
-if (( $with_firewall = 1 ))
+if (( $with_firewall == 1 ))
 then
   /Install/1_2_firewallSetup.sh '/etc/nftables.conf'
 fi
@@ -177,6 +177,8 @@ fi
 echo "Enabling NetworkManager"
 systemctl enable NetworkManager
 EOF
+
+rm -rf /mnt/Install
 
 umount -R /mnt
 
