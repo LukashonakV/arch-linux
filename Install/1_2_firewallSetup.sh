@@ -41,3 +41,6 @@ nft add rule inet filter input counter reject with icmpx type port-unreachable
 
 #Save config
 nft -s list ruleset | tee $1
+
+#Enable nftables
+systemctl enable nftables
