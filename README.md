@@ -4,6 +4,7 @@ Set of install and configuration files
 ## Notation
 - Partition scheme full description https://wiki.archlinux.org/index.php/Partitioning
 - Encrypting an entire system https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system
+- Solid state drive https://wiki.archlinux.org/index.php/Solid_state_drive
 ---
 ## Introduction
 - Modularity of the installation and configuration process
@@ -70,7 +71,9 @@ Chapter|      Object|       Description|
    > - part_swap_size. Gigabytes reserved for the swap [partition](#Notation).
    > - host_name. Defines machines host name.
    > - with_hibernation. Turns ON/OFF special setup in hibernation purpose for.
-   > - with_firewall. Turns ON/OFF firewall setup. See [Arch firewall](https://wiki.archlinux.org/index.php/Category:Firewalls)
+   > - with_firewall. Turns ON/OFF firewall setup. See [Arch firewall](https://wiki.archlinux.org/index.php/Category:Firewalls)   
+   > - disk_type defines physical disk drive where system is going to be installed to. When SDA, TRIM and swappiness configurations take the part. More details about [SSD](#Notation). More details about [SWAP](https://wiki.archlinux.org/index.php/swap)
+   > - Defines the TMPFS sizing. Is OFF, when equal to zero.
    ## 1.3 Installation
    - Boot into Arch ISO
    - Download Install/1_baseInstall.sh via wget https://raw.githubusercontent.com/lukashonak/arch-linux/master/Install/1_baseInstall.sh
