@@ -7,3 +7,4 @@ cd zramswap
 makepkg -si --noconfirm
 cd ../..
 rm -rf zswapSetup
+systemctl enable zramswap.service
