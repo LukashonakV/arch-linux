@@ -31,6 +31,7 @@ Chapter|      Object|       Description|
 |:---:|:---:|:---:|
 | 1. Base Installation|   1_baseInstall.sh|Install base clean system on Unalocated SDA area|
 | 1. Base Installation|   1_2_firewallSetup.sh|Configures standart base firewall(nftables approach)|
+| 1. Base Installation|   1_3_zswapSetup.sh|Configures zswap|
 ---
 ## Prerequisites
 - Download the freshet ISO Arch image [Arch ISO](https://www.archlinux.org/download/)
@@ -75,7 +76,7 @@ Chapter|      Object|       Description|
    > - with_firewall. Turns ON/OFF firewall setup. See [Arch firewall](https://wiki.archlinux.org/index.php/Category:Firewalls)   
    > - disk_type defines physical disk drive where system is going to be installed to. When SDA, TRIM and swappiness configurations take the part. More details about [SSD](#Notation). More details about [SWAP](https://wiki.archlinux.org/index.php/swap)
    > - Gigabytes reserved for the TMPFS. Is OFF, when equal to zero.
-   > - with_zswap. Turns ON/OFF Zswap. More details about [ZSwap](https://wiki.archlinux.org/index.php/Improving_performance#Choosing_and_tuning_your_filesystem) zram and szwap section. For activation is used zramswap AUR package[zramswap](https://aur.archlinux.org/packages/zramswap/)
+   > - with_zswap. Turns ON/OFF Zswap. More details about [ZSwap](https://wiki.archlinux.org/index.php/Improving_performance#Choosing_and_tuning_your_filesystem) "zram and zswap" section. For activation is used zramswap AUR package [zramswap](https://aur.archlinux.org/packages/zramswap/)
    ## 1.3 Installation
    - Boot into Arch ISO
    - Download Install/1_baseInstall.sh via wget https://raw.githubusercontent.com/lukashonak/arch-linux/master/Install/1_baseInstall.sh
