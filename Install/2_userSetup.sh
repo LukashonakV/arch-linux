@@ -8,6 +8,7 @@ sudo pacman -Syu --noconfirm
 
 echo "Creating user's folders"
 sudo pacman -S --noconfirm xdg-user-dirs
+xdg-user-dirs-update
 
 echo "Adding Vulkan support"
 sudo pacman -S --noconfirm vulkan-intel vulkan-icd-loader
@@ -22,7 +23,7 @@ echo "Installing yay"
 cd ~/Downloads
 git clone https://aur.archlinux.org/yay.git
 cd yay
-makepkg -si
+makepkg -si --noconfirm
 cd ../..
 rm -rf yay
 
