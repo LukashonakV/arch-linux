@@ -213,7 +213,7 @@ then
   /Install/1_2_firewallSetup.sh '/etc/nftables.conf'
 fi
 
-if (( $with_zswap = 1 ))
+if (( $with_zswap == 1 ))
 then
   echo "Setup ZSWAP configuration"
   /Install/1_3_zswapSetup.sh
