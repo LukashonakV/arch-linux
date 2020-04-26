@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #Clear current setup
 nft flush ruleset
 #Add new config
