@@ -69,7 +69,7 @@ mkdir /mnt/boot
 mount /dev/mapper/cryptlvm /mnt/boot
 
 echo "Installing base packages"
-yes | pacstrap /mnt base linux linux-firmware intel-ucode
+yes | pacstrap /mnt base linux linux-firmware intel-ucode base-devel linux-headers
 
 if [[ with_firewall -eq 1 ]]
 then
