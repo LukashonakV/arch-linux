@@ -31,5 +31,5 @@ if [[ with_zswap -eq 1 ]]
 then
   echo "Setup zramswap"
   yay -S zramswap
-  systemctl enable zramswap.service
+  sudo systemctl enable zramswap.service
 fi
