@@ -30,6 +30,7 @@ rm -rf yay
 if [[ with_zswap -eq 1 ]]
 then
   sudo swapoff -a
+  sudo cryptsetup close /dev/mapper/swap
   echo "Setup zramswap"
   yay -S --answerclean None --answerdiff None zramswap
   sudo systemctl enable zramswap.service
