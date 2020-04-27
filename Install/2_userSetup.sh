@@ -30,6 +30,6 @@ rm -rf yay
 if [[ with_zswap -eq 1 ]]
 then
   echo "Setup zramswap"
-  yay -S --nodiffmenu --nocleanmenu zramswap
+  yay -S --answerclean None --answerdiff None zramswap
   sudo systemctl enable zramswap.service
 fi
