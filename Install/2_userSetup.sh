@@ -1,5 +1,20 @@
 #!/bin/bash
 
+#Turn on/off zswap
+with_zswap="1"
+
+if [[ with_zswap -eq 1 ]]
+then
+  mkdir zswapSetup
+  cd zswapSetup
+  git clone https://aur.archlinux.org/zramswap.git
+  cd zramswap
+  makepkg -si --noconfirm
+  cd ../..
+  rm -rf zswapSetup
+  systemctl enable zramswap.service
+fi
+
 echo "Updating packages"
 sudo pacman -Syu --noconfirm
 
