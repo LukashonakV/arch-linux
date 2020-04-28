@@ -29,6 +29,8 @@ with_firewall="1"
 disk_type="sda"
 #tmp to tmpfs in Gb
 tmpfs_size="0"
+#Turn on/off zswap
+with_zswap="1"
 ###############################################
 #Tech variables. Don't touch
 repo_git_path='https://raw.githubusercontent.com/lukashonak/arch-linux/master/Install'
@@ -209,6 +211,12 @@ if (( $with_firewall == 1 ))
 then
   echo "Setup FireWall"
   /Install/1_2_firewallSetup.sh '/etc/nftables.conf'
+fi
+
+if (( $with_zswap == 1 ))
+then
+  echo "Setup Zramswap"
+  /Install/1_3_zswapSetup.sh
 fi
 
 echo "Setup NetworkManager"
