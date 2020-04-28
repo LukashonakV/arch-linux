@@ -21,9 +21,9 @@ sudo pacman -S --noconfirm ttf-roboto ttf-droid ttf-opensans ttf-dejavu ttf-libe
 
 if [[ with_zswap -eq 1 ]]
 then
+  echo "Setup zramswap"
   sudo swapoff -a
   sudo cryptsetup close /dev/mapper/swap
-  echo "Setup zramswap"
   cd ~/Downloads
   git clone https://aur.archlinux.org/zramswap.git
   cd zramswap
