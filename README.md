@@ -83,5 +83,27 @@ Chapter|      Object|       Description|
    - Make file executable using chmod +x 1_baseInstall.sh
    - Execute it using ./1_baseInstall.sh. For to get install.log use ./1_baseInstall.sh >> install.log
 # 1. User Installation
-  ## 2.1 Variables
+  ## 2.1 Goals
+  - Zramswap
+  - General user's folder
+  - Vulkan support
+  - Programs:
+    - firefox
+    - openssh
+    - htop
+    - nmon
+    - p7zip
+    - ripgrep
+    - unzip
+  - Base fonts:
+    - ttf-roboto
+    - ttf-droid
+    - ttf-opensans
+    - ttf-dejavu
+    - ttf-liberation
+    - ttf-hack
+    - noto-fonts
+    - ttf-fira-code
+    - cantarell-fonts
+  ## 2.2 Variables
   > - with_zswap. Turns ON/OFF Zswap. More details about [ZSwap](https://wiki.archlinux.org/index.php/Improving_performance#Choosing_and_tuning_your_filesystem) "zram and zswap" section. For activation is used zramswap AUR package [zramswap](https://aur.archlinux.org/packages/zramswap/)
