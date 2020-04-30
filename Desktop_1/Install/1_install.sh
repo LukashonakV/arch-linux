@@ -13,7 +13,11 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
   XKB_DEFAULT_LAYOUT=us exec sway
 fi' >> ~/.bash_profile
 
+echo "Setup cursors"
 for file in $(find cursors_path -type f);
 do
   tar xf $file -C ~/.icons;
 done
+
+echo "Inherits=Pulse-Glass-Jade-Small" >> ~/.icons/default/index.theme
+echo "gtk-cursor-theme-name=Pulse-Glass-Jade-Small" >> $XDG_CONFIG_HOME/gtk-3.0/settings.ini
