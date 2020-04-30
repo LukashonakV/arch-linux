@@ -34,3 +34,5 @@ sudo pacman -S --noconfirm ttf-roboto ttf-droid ttf-opensans ttf-dejavu ttf-libe
 echo "GTK3 setup"
 mkdir $XDG_CONFIG_HOME/gtk-3.0
 cp /usr/share/gtk-3.0/settings.ini $XDG_CONFIG_HOME/gtk-3.0
+
+mkdir -p ~/.icons/default
