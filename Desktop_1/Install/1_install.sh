@@ -3,7 +3,7 @@
 install_path="$(cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P | sed 's/\/Install//')"
 cursors_path="$install_path/Resources/Cursors"
 
-sudo pacman -S sway swaylock swayidle xorg-server-xwayland
+sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland
 
 mkdir $XDG_CONFIG_HOME/sway
 cp /etc/sway/config $XDG_CONFIG_HOME/sway
