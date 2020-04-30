@@ -14,7 +14,7 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
 fi' >> ~/.bash_profile
 
 echo "Setup cursors"
-for file in $(find cursors_path -type f);
+for file in $(find $cursors_path -type f);
 do
   tar xf $file -C ~/.icons;
 done
