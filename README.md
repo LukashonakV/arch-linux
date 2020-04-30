@@ -107,3 +107,7 @@ Chapter|      Object|       Description|
     - cantarell-fonts
   ## 2.2 Variables
   > - with_zswap. Turns ON/OFF Zswap. More details about [ZSwap](https://wiki.archlinux.org/index.php/Improving_performance#Choosing_and_tuning_your_filesystem) "zram and zswap" section. For activation is used zramswap AUR package [zramswap](https://aur.archlinux.org/packages/zramswap/)
+  ## 2.3 Installation
+  - Navigate to home directory using > cd ~
+  - Clone repository using > git clone https://github.com/lukashonak/arch-linux ArchInstall
+  - Make sh files executable using > for file in $(find ~/ArchInstall -type f -name '*.sh'); do chmod +x $file; done
