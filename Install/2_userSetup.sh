@@ -31,4 +31,6 @@ sudo pacman -S --noconfirm firefox openssh htop nmon p7zip ripgrep unzip
 echo "Installing fonts"
 sudo pacman -S --noconfirm ttf-roboto ttf-droid ttf-opensans ttf-dejavu ttf-liberation ttf-hack noto-fonts ttf-fira-code cantarell-fonts
 
-rm 2_userSetup.sh
+echo "GTK3 setup"
+mkdir $XDG_CONFIG_HOME/gtk-3.0
+cp /usr/share/gtk-3.0/settings.ini $XDG_CONFIG_HOME/gtk-3.0
