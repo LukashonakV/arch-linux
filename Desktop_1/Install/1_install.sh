@@ -19,5 +19,5 @@ do
   tar xf $file -C ~/.icons;
 done
 
-echo "Inherits=Pulse-Glass-Jade-Small" >> ~/.icons/default/index.theme
-echo "gtk-cursor-theme-name=Pulse-Glass-Jade-Small" >> $XDG_CONFIG_HOME/gtk-3.0/settings.ini
+echo "Inherits=capitaine-cursors" >> ~/.icons/default/index.theme
+echo "gtk-cursor-theme-name=capitaine-cursors" >> $XDG_CONFIG_HOME/gtk-3.0/settings.ini
