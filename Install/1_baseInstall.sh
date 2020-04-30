@@ -205,6 +205,12 @@ fi
 
 echo "Setup NetworkManager"
 systemctl enable NetworkManager
+
+echo "Setup XDG"
+echo "XDG_CACHE_HOME  DEFAULT=@{HOME}/.xdg/cache
+XDG_CONFIG_HOME DEFAULT=@{HOME}/.xdg/config
+XDG_DATA_HOME   DEFAULT=@{HOME}/.xdg/data
+XDG_STATE_HOME  DEFAULT=@{HOME}/.xdg/state" >> /etc/security/pam_env.conf
 EOF
 
 rm -rf /mnt/Install
