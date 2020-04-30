@@ -36,3 +36,5 @@ mkdir $XDG_CONFIG_HOME/gtk-3.0
 cp /usr/share/gtk-3.0/settings.ini $XDG_CONFIG_HOME/gtk-3.0
 
 mkdir -p ~/.icons/default
+touch ~/.icons/default/index.theme
+echo "[icon theme]" >> ~/.icons/default/index.theme
