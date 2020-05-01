@@ -7,7 +7,7 @@ sway_path="$install_path/Resources/Sway"
 sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland termite
 
 mkdir $XDG_CONFIG_HOME/sway
-cp "$sway_path""/*" $XDG_CONFIG_HOME/sway
+cp -a "$sway_path""/." $XDG_CONFIG_HOME/sway
 
 echo '# Sway autostart
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
