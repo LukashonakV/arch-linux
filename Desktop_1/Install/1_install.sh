@@ -2,11 +2,12 @@
 
 install_path="$(cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P | sed 's/\/Install//')"
 cursors_path="$install_path/Resources/Cursors"
+sway_path="$install_path/Resources/Sway"
 
 sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland
 
 mkdir $XDG_CONFIG_HOME/sway
-cp "$install_path/Resources/Sway/*" $XDG_CONFIG_HOME/sway
+cp "$sway_path""/*" $XDG_CONFIG_HOME/sway
 
 echo '# Sway autostart
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
