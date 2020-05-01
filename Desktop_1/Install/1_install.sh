@@ -14,10 +14,8 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
 fi' >> ~/.bash_profile
 
 echo "Setup cursors"
+mkdir -p ~/.local/share/icons
 for file in $(find $cursors_path -type f);
 do
-  tar xf $file -C ~/.icons;
+  tar xf $file -C ~/.local/share/icons/;
 done
-
-echo "Inherits=capitaine-cursors" >> ~/.icons/default/index.theme
-echo "gtk-cursor-theme-name=capitaine-cursors" >> $XDG_CONFIG_HOME/gtk-3.0/settings.ini
