@@ -20,3 +20,6 @@ for file in $(find $cursors_path -type f);
 do
   tar xf $file -C ~/.local/share/icons/;
 done
+
+echo "Setup GTK dark"
+echo "gtk-application-prefer-dark-theme = true" >> $XDG_CONFIG_HOME/gtk-3.0/settings.ini
