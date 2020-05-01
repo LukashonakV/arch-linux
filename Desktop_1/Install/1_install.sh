@@ -6,7 +6,7 @@ cursors_path="$install_path/Resources/Cursors"
 sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland
 
 mkdir $XDG_CONFIG_HOME/sway
-cp /etc/sway/config $XDG_CONFIG_HOME/sway
+cp "$install_path/Resources/Sway/*" $XDG_CONFIG_HOME/sway
 
 echo '# Sway autostart
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
