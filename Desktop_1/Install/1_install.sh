@@ -6,7 +6,7 @@ sway_path="$install_path/Resources/Sway"
 wallp_path="$install_path/Resources/Wallpapers"
 usrcust_path="$install_path/Resources/UserScripts"
 
-sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland termite rofi imagemagick grim slurp
+sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland termite rofi imagemagick grim slurp python
 
 mkdir $XDG_CONFIG_HOME/sway
 yes | cp -arf "$sway_path""/." $XDG_CONFIG_HOME/sway
