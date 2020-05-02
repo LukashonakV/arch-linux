@@ -48,6 +48,10 @@ exec_always {
 ### Cursor
 seat seat0 xcursor_theme capitaine-cursors
 #
+### Screenshots
+bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') $(xdg-user-dir PICTURES)/$(date +'%Y%m%d-%H%M%S_scrn.png')
+bindsym $mod+Shift+Print exec grim -g "$(slurp)" $(xdg-user-dir PICTURES)/$(date +'%Y%m%d-%H%M%S_scrn.png')
+#
 ### Screen lock
 bindsym $mod+Ctrl+l exec /usr/local/bin/lock
 
