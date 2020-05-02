@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Turn on/off zswap
-with_zswap="0"
+with_zswap="1"
 
 if [[ with_zswap -eq 1 ]]
 then
