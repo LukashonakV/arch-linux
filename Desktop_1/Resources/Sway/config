@@ -47,6 +47,9 @@ exec_always {
 
 ### Cursor
 seat seat0 xcursor_theme capitaine-cursors
+#
+### Screen lock
+bindsym $mod+Ctrl+l exec /usr/local/bin/lock
 
 ### Idle configuration
 #
