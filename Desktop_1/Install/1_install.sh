@@ -5,7 +5,7 @@ cursors_path="$install_path/Resources/Cursors"
 sway_path="$install_path/Resources/Sway"
 wallp_path="$install_path/Resources/Wallpapers"
 
-sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland termite
+sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland termite rofi
 
 mkdir $XDG_CONFIG_HOME/sway
 yes | cp -arf "$sway_path""/." $XDG_CONFIG_HOME/sway
