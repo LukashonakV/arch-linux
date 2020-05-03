@@ -35,6 +35,10 @@ output * bg `$XDG_CONFIG_HOME/sway/random_bg "$HOME/Pictures/Wallpapers"` fill
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
+
+### No title
+default_border pixel 1
+
 ### GTK SWAY workaround
 #
 set $gnome-schema org.gnome.desktop.interface
@@ -227,6 +231,28 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+
+#
+### Custom keybindings
+#
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+### Paste to rofi
+bindsym $mod+Ctrl+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+#
+### Fix keybindings with keyboard layouts
+bindsym --to-code {
+	$mod+$left focus left
+	$mod+$down focus down
+	$mod+$up focus up
+	$mod+$right focus right
+} 
 
 #
 # Status Bar:
