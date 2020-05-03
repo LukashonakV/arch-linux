@@ -5,6 +5,7 @@ cursors_path="$install_path/Resources/Cursors"
 sway_path="$install_path/Resources/Sway"
 wallp_path="$install_path/Resources/Wallpapers"
 usrcust_path="$install_path/Resources/UserScripts"
+rofi_path="$install_path/Resources/Rofi"
 
 sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland termite rofi imagemagick grim slurp python
 
@@ -35,3 +36,7 @@ echo "gtk-application-prefer-dark-theme = true" >> "$XDG_CONFIG_HOME/gtk-3.0/set
 
 echo "Setup user scripts"
 yes | sudo cp -arf "$usrcust_path""/." /usr/local/bin
+
+echo "Setup Rofi"
+mkdir $XDG_CONFIG_HOME/rofi
+yes | cp -arf "$rofi_path""/." $XDG_CONFIG_HOME/rofi
