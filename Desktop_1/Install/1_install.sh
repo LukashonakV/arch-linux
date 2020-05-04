@@ -6,6 +6,7 @@ sway_path="$install_path/Resources/Sway"
 wallp_path="$install_path/Resources/Wallpapers"
 usrcust_path="$install_path/Resources/UserScripts"
 rofi_path="$install_path/Resources/Rofi"
+termite_path="$install_path/Resources/Termite"
 
 sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland termite rofi imagemagick grim slurp python
 
@@ -40,3 +41,7 @@ yes | sudo cp -arf "$usrcust_path""/." /usr/local/bin
 echo "Setup Rofi"
 mkdir $XDG_CONFIG_HOME/rofi
 yes | cp -arf "$rofi_path""/." $XDG_CONFIG_HOME/rofi
+
+echo "Setup Termite"
+mkdir $XDG_CONFIG_HOME/termite
+yes | cp -arf "$termite_path""/." $XDG_CONFIG_HOME/termite
