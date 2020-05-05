@@ -63,3 +63,6 @@ man() {
 echo "	Setup diff colors"
 echo "# diff colors
 alias diff='diff --color=auto'" >> ~/.bashrc
+echo "	Setup grep colors"
+echo "# grep colors
+alias grep='grep --color=auto -n'" >> ~/.bashrc
