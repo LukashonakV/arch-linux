@@ -44,5 +44,19 @@ cp /usr/share/gtk-3.0/settings.ini $XDG_CONFIG_HOME/gtk-3.0
 mkdir -p ~/.local/share
 
 echo "Setup colors"
+
+echo "	Setup pacman colors"
 sudo sed -i 's/#Color/Color/' /etc/pacman.conf
 sudo sed -i 's/#TotalDownload/TotalDownload/' /etc/pacman.conf
+
+echo "	Setup man colors"
+echo "# man colors
+man() {
+	LESS_TERMCAP_md=$'\e[01;31m' \\
+	LESS_TERMCAP_me=$'\e[0m' \\
+	LESS_TERMCAP_se=$'\e[0m' \\
+	LESS_TERMCAP_so=$'\e[01;44;33m' \\
+	LESS_TERMCAP_ue=$'\e[0m' \\
+	LESS_TERMCAP_us=$'\e[01;32m' \\
+	command man \"\$@\"
+}" >> ~/.bashrc
