@@ -60,3 +60,6 @@ man() {
 	LESS_TERMCAP_us=$'\e[01;32m' \\
 	command man \"\$@\"
 }" >> ~/.bashrc
+echo "	Setup diff colors"
+echo "# diff colors
+alias diff='diff --color=auto'" >> ~/.bashrc
