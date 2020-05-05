@@ -43,6 +43,9 @@ cp /usr/share/gtk-3.0/settings.ini $XDG_CONFIG_HOME/gtk-3.0
 
 mkdir -p ~/.local/share
 
+echo "Setup bash promt"
+sed -i "s/PS1.*/PS1='\\\[\$(tput sc; printf \"%*s\" \$COLUMNS \"[\\\t]\"; tput rc)\\\]\\\[\\\e[38;5;223m\\\u\\\]\\\e[38;5;20m\\\]@\\\h \\\e[38;5;223m\\\]\\\W\\\n\\\e[38;5;20m\\\]> \\\e[38;5;3m\\\]\\\$ \\\[\\\e[0m\\\]'/" ~/.bashrc
+
 echo "Setup colors"
 
 echo "	Setup pacman colors"
@@ -66,3 +69,6 @@ alias diff='diff --color=auto'" >> ~/.bashrc
 echo "	Setup grep colors"
 echo "# grep colors
 alias grep='grep --color=auto -n'" >> ~/.bashrc
+echo "	Setup ip colors"
+echo "# ip colors
+alias ip='ip -color=auto'" >> ~/.bashrc
