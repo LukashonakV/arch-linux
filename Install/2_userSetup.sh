@@ -37,8 +37,12 @@ mkdir -p $XDG_CONFIG_HOME
 mkdir -p $XDG_CACHE_HOME
 mkdir -p $XDG_STATE_HOME
 
-echo "GTK3 setup"
+echo "Setup GTK3"
 mkdir $XDG_CONFIG_HOME/gtk-3.0
 cp /usr/share/gtk-3.0/settings.ini $XDG_CONFIG_HOME/gtk-3.0
 
 mkdir -p ~/.local/share
+
+echo "Setup colors"
+sudo sed -i 's/#Color/Color/' /etc/pacman.conf
+sudo sed -i 's/#TotalDownload/TotalDownload/' /etc/pacman.conf

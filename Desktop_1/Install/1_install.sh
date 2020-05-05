@@ -8,7 +8,7 @@ usrcust_path="$install_path/Resources/UserScripts"
 rofi_path="$install_path/Resources/Rofi"
 termite_path="$install_path/Resources/Termite"
 
-sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland termite rofi imagemagick grim slurp python
+sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland termite rofi imagemagick grim slurp
 
 mkdir $XDG_CONFIG_HOME/sway
 yes | cp -arf "$sway_path""/." $XDG_CONFIG_HOME/sway
