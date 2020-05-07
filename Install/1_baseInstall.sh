@@ -32,7 +32,7 @@ tmpfs_size="0"
 ###############################################
 #Tech variables. Don't touch
 repo_git_path='https://raw.githubusercontent.com/lukashonak/arch-linux/master/Install'
-addition_packages='yes | pacstrap /mnt pacman-contrib lvm2 device-mapper cryptsetup networkmanager wget man vim sudo git grub'
+addition_packages='yes | pacstrap /mnt pacman-contrib lvm2 device-mapper cryptsetup networkmanager wget man neovim sudo git grub'
 if [[ disk_type -eq "sda" ]]
 then
   discard_HOOK=" rd.luks.options=discard"
@@ -210,7 +210,8 @@ echo "Setup XDG"
 echo "XDG_CACHE_HOME  DEFAULT=@{HOME}/.xdg/cache
 XDG_CONFIG_HOME DEFAULT=@{HOME}/.xdg/config
 XDG_DATA_HOME   DEFAULT=@{HOME}/.xdg/data
-XDG_STATE_HOME  DEFAULT=@{HOME}/.xdg/state" >> /etc/security/pam_env.conf
+XDG_STATE_HOME  DEFAULT=@{HOME}/.xdg/state
+VISUAL		DEFAULT=nvim" >> /etc/security/pam_env.conf
 EOF
 
 rm -rf /mnt/Install

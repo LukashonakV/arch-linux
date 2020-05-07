@@ -41,6 +41,9 @@ echo "Setup GTK3"
 mkdir $XDG_CONFIG_HOME/gtk-3.0
 cp /usr/share/gtk-3.0/settings.ini $XDG_CONFIG_HOME/gtk-3.0
 
+echo "Setup neovim"
+touch $XDG_CONFIG_HOME/nvim/init.vim
+
 mkdir -p ~/.local/share
 
 echo "Setup bash promt"
