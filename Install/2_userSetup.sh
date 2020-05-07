@@ -42,6 +42,7 @@ mkdir $XDG_CONFIG_HOME/gtk-3.0
 cp /usr/share/gtk-3.0/settings.ini $XDG_CONFIG_HOME/gtk-3.0
 
 echo "Setup neovim"
+mkdir -p $XDG_CONFIG_HOME/nvim
 touch $XDG_CONFIG_HOME/nvim/init.vim
 
 mkdir -p ~/.local/share
