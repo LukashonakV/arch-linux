@@ -45,3 +45,9 @@ yes | cp -arf "$rofi_path""/." $XDG_CONFIG_HOME/rofi
 echo "Setup Termite"
 mkdir $XDG_CONFIG_HOME/termite
 yes | cp -arf "$termite_path""/." $XDG_CONFIG_HOME/termite
+
+echo "Setup Neovim"
+mkdir $XDG_DATA_HOME/nvim/plugged
+sh -c 'curl -flo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+echo "call plug#begin('\$XDG_DATA_HOME/nvim/plugged')" >> $XDG_CONFIG_HOME/nvim/init.vim
+echo "call plug#end()" >> $XDG_CONFIG_HOME/nvim/init.vim
