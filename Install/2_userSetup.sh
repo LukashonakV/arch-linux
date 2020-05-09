@@ -48,7 +48,7 @@ touch $XDG_CONFIG_HOME/nvim/init.vim
 mkdir -p ~/.local/share
 
 echo "Setup bash promt"
-sed -i "s/PS1.*/PS1='\\\[\$(tput sc; printf \"%*s\" \$COLUMNS \"[\\\t]\"; tput rc)\\\]\\\[\\\e[38;5;223m\\\u\\\]\\\e[38;5;20m\\\]@\\\h \\\e[38;5;223m\\\]\\\W\\\n\\\e[38;5;20m\\\]> \\\e[38;5;3m\\\]\\\$ \\\[\\\e[0m\\\]'/" ~/.bashrc
+sed -i "s/PS1.*/PS1='\\\[\$(tput sc; printf \"%*s\" \$COLUMNS \"[\\\t]\"; tput rc)\\\]\\\[\\\e[38;5;223m\\\]\\\u\\\[\\\e[38;5;20m\\\]@\\\h \\\[\\\e[38;5;223m\\\]\\\W\\\n\\\[\\\e[38;5;20m\\\]> \\\[\\\e[38;5;3m\\\]\\\$ \\\[\\\e[0m\\\]'/" ~/.bashrc
 
 echo "Setup colors"
 
