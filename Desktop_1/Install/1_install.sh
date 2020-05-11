@@ -7,8 +7,9 @@ wallp_path="$install_path/Resources/Wallpapers"
 usrcust_path="$install_path/Resources/UserScripts"
 rofi_path="$install_path/Resources/Rofi"
 termite_path="$install_path/Resources/Termite"
+nvim_path="$install_path/Resources/Nvim"
 
-sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland termite rofi imagemagick grim slurp wl-clipboard
+sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland termite rofi imagemagick grim slurp wl-clipboard python-pynvim python-msgpack
 
 mkdir $XDG_CONFIG_HOME/sway
 yes | cp -arf "$sway_path""/." $XDG_CONFIG_HOME/sway
@@ -47,7 +48,7 @@ mkdir $XDG_CONFIG_HOME/termite
 yes | cp -arf "$termite_path""/." $XDG_CONFIG_HOME/termite
 
 echo "Setup Neovim"
-mkdir $XDG_DATA_HOME/nvim/plugged
+mkdir -p $XDG_DATA_HOME/nvim/plugged
 sh -c 'curl -flo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-echo "call plug#begin('\$XDG_DATA_HOME/nvim/plugged')" >> $XDG_CONFIG_HOME/nvim/init.vim
-echo "call plug#end()" >> $XDG_CONFIG_HOME/nvim/init.vim
+yes | cp -arf "$nvim_path""/." $XDG_CONFIG_HOME/nvim
+nvim -c "PlugUpgrade|PlugInstall|quit|quit"
