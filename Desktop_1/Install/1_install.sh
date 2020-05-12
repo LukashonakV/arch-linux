@@ -60,4 +60,4 @@ echo "Setup Neovim"
 mkdir -p $XDG_DATA_HOME/nvim/plugged
 sh -c 'curl -flo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 yes | cp -arf "$nvim_path""/." $XDG_CONFIG_HOME/nvim
-nvim -c "PlugUpgrade|PlugInstall|quit|quit"
+nvim -c "PlugUpgrade|PlugInstall|quit|quit" --headless
