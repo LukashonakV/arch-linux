@@ -47,6 +47,15 @@ echo "Setup Termite"
 mkdir $XDG_CONFIG_HOME/termite
 yes | cp -arf "$termite_path""/." $XDG_CONFIG_HOME/termite
 
+echo "Setup patched Nerd-fonts. Can take long time..."
+cd ~/Downloads
+git clone https://github.com/ryanoasis/nerd-fonts --depth 1
+cd nerd-fonts
+./install.sh
+cd ..
+rm -rf nerd-fonts
+sudo mv ~/.local/share/fonts/* /usr/share/fonts
+
 echo "Setup Neovim"
 mkdir -p $XDG_DATA_HOME/nvim/plugged
 sh -c 'curl -flo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
