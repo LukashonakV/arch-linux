@@ -3,7 +3,7 @@
 #Turn on/off zswap
 with_zswap="1"
 
-if [[ with_zswap -eq 1 ]]
+if [[ with_zswap -eq 1 ]] && [[ -z $(lsblk /dev/zram0) ]]
 then
   mkdir zswapSetup
   cd zswapSetup
