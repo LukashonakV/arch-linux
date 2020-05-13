@@ -76,3 +76,15 @@ alias grep='grep --color=auto -n'" >> ~/.bashrc
 echo "	Setup ip colors"
 echo "# ip colors
 alias ip='ip -color=auto'" >> ~/.bashrc
+
+echo "Setup bash functions"
+echo "# cd + ls
+cl() {
+	local dir="$1"
+	local dir="${dir:=$HOME}"
+	if [[ -d "$dir" ]]; then
+		cd "$dir" >/dev/null; ls
+	else
+		echo "bash: cl: $dir: Directory not found"
+	fi
+}" >> ~/.bashrc
