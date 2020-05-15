@@ -9,7 +9,7 @@ rofi_path="$install_path/Resources/Rofi"
 termite_path="$install_path/Resources/Termite"
 nvim_path="$install_path/Resources/Nvim"
 
-sudo pacman -S --noconfirm sway swaylock swayidle xorg-server-xwayland termite rofi imagemagick grim slurp wl-clipboard python-pynvim python-msgpack
+sudo pacman -S --noconfirm sway swaylock swayidle waybar xorg-server-xwayland termite rofi imagemagick grim slurp wl-clipboard python-pynvim python-msgpack
 
 mkdir $XDG_CONFIG_HOME/sway
 yes | cp -arf "$sway_path""/." $XDG_CONFIG_HOME/sway
