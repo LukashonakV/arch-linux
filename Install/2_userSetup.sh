@@ -80,11 +80,11 @@ alias ip='ip -color=auto'" >> ~/.bashrc
 echo "Setup bash functions"
 echo "# cd + ls
 cl() {
-	local dir="$1"
-	local dir="${dir:=$HOME}"
-	if [[ -d "$dir" ]]; then
-		cd "$dir" >/dev/null; ls
+	local dir=\"\$1\"
+	local dir=\"\${dir:=\$HOME}\"
+	if [[ -d \"\$dir\" ]]; then
+		cd \"\$dir\" >/dev/null; ls
 	else
-		echo "bash: cl: $dir: Directory not found"
+		echo \"bash: cl: \$dir: Directory not found\"
 	fi
 }" >> ~/.bashrc
