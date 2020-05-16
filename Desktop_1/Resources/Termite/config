@@ -7,6 +7,7 @@ allow_bold = true
 #clickable_url = true
 #dynamic_title = true
 font = Monospace 9
+#font = Source Code Pro 9
 #fullscreen = true
 #icon_name = terminal
 #mouse_autohide = false
@@ -78,11 +79,12 @@ cursor_shape = ibeam
 # Base16 Solarized Dark
 # Author: Ethan Schoonover (modified by aramisgithub)
 
-foreground          = #93a1a1
+foreground          = #b8c4be
+#foreground          = #93a1a1
 foreground_bold     = #eee8d5
 cursor              = #eee8d5
 cursor_foreground   = #002b36
-background          = rgba(0, 43, 54, 0.85)
+background          = rgba(0, 43, 54, 0.95)
 
 # 16 color space
 

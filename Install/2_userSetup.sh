@@ -48,7 +48,18 @@ touch $XDG_CONFIG_HOME/nvim/init.vim
 mkdir -p ~/.local/share
 
 echo "Setup bash promt"
-sed -i "s/PS1.*/PS1='\\\[\$(tput sc; printf \"%*s\" \$COLUMNS \"[\\\t]\"; tput rc)\\\]\\\[\\\e[38;5;223m\\\]\\\u\\\[\\\e[38;5;20m\\\]@\\\h \\\[\\\e[38;5;223m\\\]\\\W\\\n\\\[\\\e[38;5;20m\\\]> \\\[\\\e[38;5;3m\\\]\\\$ \\\[\\\e[0m\\\]'/" ~/.bashrc
+sed -i "s/PS1.*/#&1/" ~/.bashrc
+echo "# Bash promt customization
+    set_prompt() {
+    Date_right='\\[\$(tput sc; printf \"%*s\" \$COLUMNS \"[\\t]\"; tput rc)\\]'
+    Color_3='\\[\\e[38;5;3m\\]'
+    Color_223='\\[\\e[38;5;223m\\]'
+    Color_reset='\\[\\e[0m\\]'
+
+    PS1=\"\$Date_right\"\"\$Color_223\"\"\\u\$Color_reset\"\"@\\h \$Color_223\"\"\\w\\n\$Color_reset\"\"> \$Color_3\"\"\\$ \$Color_reset\"
+}
+PROMPT_COMMAND='set_prompt'" >> ~/.bashrc
+#sed -i "s/PS1.*/PS1='\\\[\$(tput sc; printf \"%*s\" \$COLUMNS \"[\\\t]\"; tput rc)\\\]\\\[\\\e[38;5;223m\\\]\\\u\\\[\\\e[38;5;20m\\\]@\\\h \\\[\\\e[38;5;223m\\\]\\\W\\\n\\\[\\\e[38;5;20m\\\]> \\\[\\\e[38;5;3m\\\]\\\$ \\\[\\\e[0m\\\]'/" ~/.bashrc
 
 echo "Setup colors"
 
