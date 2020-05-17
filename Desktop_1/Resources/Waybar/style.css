@@ -1,0 +1,57 @@
+window#waybar {
+    border:         none;
+    border-radius:  0;
+    font-family:    "Fira Sans SemiBold";
+    font-size:      13px;
+    box-shadow:     none;
+    text-shadow:    none;
+    transition-duration:    0s;
+    color:          #b8c4be;
+    background:     rgba(0, 43, 54, 1);
+}
+
+window#waybar.solo {
+    background:     rgb(35, 31, 32);
+}
+
+#workspaces {
+    margin:         0 5px;
+}
+
+#workspaces button {
+    padding:        0 5px;
+    color:          rgba(184, 196, 190, 0.4);
+}
+
+#workspaces button.visible {
+    color:          rgba(184, 196, 190, 1);
+}
+
+#workspaces button.focused {
+    border-top:     3px solid rgba(184, 196, 190, 1);
+    border-bottom:  3px solid rgba(184, 196, 190, 0);
+}
+
+#workspaces button.urgent {
+    color:          rgba(238, 46, 36, 1);
+}
+
+@keyframes blink {
+    to {
+        background-color:   #ffffff;
+        color:      black;
+    }
+}
+
+#workspaces button.hover {
+    box-shadow:     inherit;
+    border-bottom:  3px solid #ffffff;
+}
+
+#workspaces button.focused {
+    border-bottom:  3px solid rgba(184, 196, 190, 1);
+}
+
+#workspaces button.urgent {
+    background-color:   #eb4d4b;
+}

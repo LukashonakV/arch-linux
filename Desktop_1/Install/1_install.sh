@@ -8,6 +8,7 @@ usrcust_path="$install_path/Resources/UserScripts"
 rofi_path="$install_path/Resources/Rofi"
 termite_path="$install_path/Resources/Termite"
 nvim_path="$install_path/Resources/Nvim"
+waybar_path="$install_path/Resources/Waybar"
 
 sudo pacman -S --noconfirm sway swaylock swayidle waybar xorg-server-xwayland termite rofi imagemagick grim slurp wl-clipboard python-pynvim python-msgpack
 
@@ -38,6 +39,10 @@ echo "gtk-application-prefer-dark-theme = true" >> "$XDG_CONFIG_HOME/gtk-3.0/set
 
 echo "Setup user scripts"
 yes | sudo cp -arf "$usrcust_path""/." /usr/local/bin
+
+echo "Setup Waybar"
+mkdir $XDG_CONFIG_HOME/waybar
+yes | cp -arf "$waybar_path""/." $XDG_CONFIG_HOME/waybar
 
 echo "Setup Rofi"
 mkdir $XDG_CONFIG_HOME/rofi
