@@ -19,17 +19,17 @@ echo "Updating packages"
 sudo pacman -Syu --noconfirm
 
 echo "Creating user's folders"
-sudo pacman -S --noconfirm xdg-user-dirs
+sudo pacman -S --needed --noconfirm xdg-user-dirs
 xdg-user-dirs-update
 
 echo "Adding Vulkan support"
-sudo pacman -S --noconfirm vulkan-intel vulkan-icd-loader
+sudo pacman -S --needed --noconfirm vulkan-intel vulkan-icd-loader
 
 echo "Installing common applications"
-sudo pacman -S --noconfirm firefox openssh htop nmon p7zip ripgrep unzip
+sudo pacman -S --needed --noconfirm firefox openssh htop nmon p7zip ripgrep unzip
 
 echo "Installing fonts"
-sudo pacman -S --noconfirm ttf-roboto ttf-droid ttf-opensans ttf-dejavu ttf-liberation ttf-hack noto-fonts ttf-fira-code cantarell-fonts
+sudo pacman -S --needed --noconfirm ttf-roboto ttf-droid ttf-opensans ttf-dejavu ttf-liberation ttf-hack noto-fonts ttf-fira-code cantarell-fonts
 
 echo "Setup XDG folders"
 mkdir -p $XDG_DATA_HOME
@@ -44,6 +44,7 @@ cp /usr/share/gtk-3.0/settings.ini $XDG_CONFIG_HOME/gtk-3.0
 echo "Setup neovim"
 mkdir -p $XDG_CONFIG_HOME/nvim
 touch $XDG_CONFIG_HOME/nvim/init.vim
+echo "alias vim='nvim'" >> ~/.bashrc
 
 mkdir -p ~/.local/share
 
@@ -88,7 +89,8 @@ echo "# ip colors
 alias ip='ip -color=auto'" >> ~/.bashrc
 
 echo "Setup bash functions"
-echo "# cd + ls
+echo "# Customer functions
+# cd + ls
 cl() {
 	local dir=\"\$1\"
 	local dir=\"\${dir:=\$HOME}\"
@@ -97,4 +99,6 @@ cl() {
 	else
 		echo \"bash: cl: \$dir: Directory not found\"
 	fi
-}" >> ~/.bashrc
+}
+alias lt='ls --human-readable --size -1 -S --classify'
+" >> ~/.bashrc
