@@ -102,4 +102,5 @@ cl() {
 }
 alias lt='ls --human-readable --size -1 -S --classify'
 alias ..='cd ..'
+alias count='find . -type f | wc -l'
 " >> ~/.bashrc
