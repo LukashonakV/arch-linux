@@ -22,6 +22,9 @@ echo "Creating user's folders"
 sudo pacman -S --needed --noconfirm xdg-user-dirs
 xdg-user-dirs-update
 
+echo "Install trash bin"
+sudo pacman -S --needed --noconfirm trash-cli
+
 echo "Adding Vulkan support"
 sudo pacman -S --needed --noconfirm vulkan-intel vulkan-icd-loader
 
@@ -51,7 +54,7 @@ mkdir -p ~/.local/share
 echo "Setup bash promt"
 sed -i "s/PS1.*/#&1/" ~/.bashrc
 echo "# Bash prompt customization
-    set_prompt() {
+set_PS1() {
     Date_right='\\[\$(tput sc; printf \"%*s\" \$COLUMNS \"[\\t]\"; tput rc)\\]'
     Color_3='\\[\\e[38;5;3m\\]'
     Color_223='\\[\\e[38;5;223m\\]'
@@ -59,7 +62,7 @@ echo "# Bash prompt customization
 
     PS1=\"\$Date_right\"\"\$Color_223\"\"\\u\$Color_reset\"\"@\\h \$Color_223\"\"\\w\\n\$Color_reset\"\"> \$Color_3\"\"\\$ \$Color_reset\"
 }
-PROMPT_COMMAND='set_prompt'" >> ~/.bashrc
+'set_PS1'" >> ~/.bashrc
 
 echo "Setup colors"
 

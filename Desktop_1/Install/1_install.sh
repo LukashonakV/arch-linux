@@ -51,6 +51,11 @@ yes | cp -arf "$rofi_path""/." $XDG_CONFIG_HOME/rofi
 echo "Setup Termite"
 mkdir $XDG_CONFIG_HOME/termite
 yes | cp -arf "$termite_path""/." $XDG_CONFIG_HOME/termite
+echo '# Set prompt
+if [[ $TERM == xterm-termite ]]; then
+    . /etc/profile.d/vte.sh
+    __vte_prompt_command
+fi' >> ~/.bashrc
 
 if [[ ! -d "/usr/share/fonts/NerdFonts" ]]
 then
