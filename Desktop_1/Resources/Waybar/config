@@ -38,6 +38,11 @@
             "9": []
         }
     },
+    "sway/window": {
+        "format": "{}",
+        "max-length": 50,
+        "tooltip": true
+    },
     "sway/mode": {
         "format": "  |  <span style=\"italic\">{}</span>"
     },
