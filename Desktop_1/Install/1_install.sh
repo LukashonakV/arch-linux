@@ -42,7 +42,9 @@ yes | sudo cp -arf "$usrcust_path""/." /usr/local/bin
 
 echo "Setup Waybar"
 mkdir $XDG_CONFIG_HOME/waybar
-yes | cp -arf "$waybar_path""/." $XDG_CONFIG_HOME/waybar
+mkdir $XDG_DATA_HOME/waybar
+yes | cp -arf "$waybar_path""/CONFIG/." $XDG_CONFIG_HOME/waybar
+yes | cp -arf "$waybar_path""/DATA/." $XDG_DATA_HOME/waybar
 
 echo "Setup Rofi"
 mkdir $XDG_CONFIG_HOME/rofi

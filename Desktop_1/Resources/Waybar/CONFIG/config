@@ -6,7 +6,8 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "custom/trashcan", "disk", "sway/mode", "custom/media"],
     "modules-center": ["sway/window"],
-    "modules-right": ["mpd", "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "battery", "battery#bat2", "clock", "tray"],
+    "modules-right": ["custom/weather"],
+//    "modules-right": ["mpd", "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "battery", "battery#bat2", "clock", "tray"],
     // Modules configuration
     // "sway/workspaces": {
     //     "disable-scroll": true,
@@ -175,5 +176,9 @@
         "interval": 2,
         "exec": "trash-list | wc -l",
         "on-click-right": "trash-empty"
+    },
+    "custom/weather": {
+        "exec": "$XDG_DATA_HOME/waybar/openweathermap-fullfeatured.sh",
+        "interval": 600
     }
 }
