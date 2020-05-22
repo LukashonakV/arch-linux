@@ -29,7 +29,7 @@ echo "Adding Vulkan support"
 sudo pacman -S --needed --noconfirm vulkan-intel vulkan-icd-loader
 
 echo "Installing common applications"
-sudo pacman -S --needed --noconfirm firefox openssh htop nmon p7zip ripgrep unzip
+sudo pacman -S --needed --noconfirm firefox openssh htop nmon p7zip ripgrep unzip pacman-contrib
 
 echo "Installing fonts"
 sudo pacman -S --needed --noconfirm ttf-roboto ttf-droid ttf-opensans ttf-dejavu ttf-liberation ttf-hack noto-fonts ttf-fira-code cantarell-fonts
