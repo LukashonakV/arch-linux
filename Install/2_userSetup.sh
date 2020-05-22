@@ -49,6 +49,15 @@ mkdir -p $XDG_CONFIG_HOME/nvim
 touch $XDG_CONFIG_HOME/nvim/init.vim
 echo "alias vim='nvim'" >> ~/.bashrc
 
+echo "Install yay"
+mkdir yaySetup
+cd yaySetup
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si --noconfirm
+cd ../..
+rm -rf yaySetup
+
 mkdir -p ~/.local/share
 
 echo "Setup bash promt"
