@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "custom/trashcan", "disk", "sway/mode", "custom/media", "sway/window"],
 //    "modules-center": ["sway/window"],
-    "modules-right": ["custom/weather", "custom/cpu"],
+    "modules-right": ["custom/weather", "custom/cpu", "custom/sysupdates"],
 //    "modules-right": ["mpd", "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "battery", "battery#bat2", "clock", "tray"],
     // Modules configuration
     // "sway/workspaces": {
@@ -177,6 +177,11 @@
 		"interval": 5,
 		"exec": "cat /proc/loadavg | cut -d ' ' -f 1-3"
 	},
+    "custom/sysupdates": {
+        "format": "  |  {}",
+        "exec": "$XDG_DATA_HOME/waybar/updates-pacman-aurhelper.sh",
+        "interval": 30
+    },
     "custom/trashcan": {
         "format": "|    {}",
         "interval": 2,
