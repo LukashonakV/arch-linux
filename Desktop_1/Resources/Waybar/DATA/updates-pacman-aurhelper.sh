@@ -8,4 +8,4 @@ if ! updates_aur=$(yay -Qum 2> /dev/null | wc -l); then
     updates_aur=0
 fi
 
-printf " $updates_arch"":""$updates_aur\npacman:yay\nsysupdates"
+printf " P:$updates_arch Y:$updates_aur\npacman:yay\nsysupdates"
