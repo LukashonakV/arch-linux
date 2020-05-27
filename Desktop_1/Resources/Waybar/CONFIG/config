@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "custom/trashcan", "disk", "sway/mode", "custom/media", "sway/window"],
 //    "modules-center": ["sway/window"],
-    "modules-right": ["network#speed", "custom/weather", "custom/cpu", "custom/sysupdates", "custom/currencies", "network"],
+    "modules-right": ["network#speed", "custom/weather", "custom/cpu", "custom/sysupdates", "custom/currencies", "network", "pulseaudio"],
 //    "modules-right": ["mpd", "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "battery", "battery#bat2", "clock", "tray"],
     // Modules configuration
     // "sway/workspaces": {
@@ -152,12 +152,12 @@
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+        "format": " | {volume}% {icon} {format_source}",
+        "format-bluetooth": " | {volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " |  {icon} {format_source}",
+        "format-muted": " |  {format_source}",
+        "format-source": " | {volume}% ",
+        "format-source-muted": " | ",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
