@@ -32,7 +32,7 @@ echo "Installing common applications"
 sudo pacman -S --needed --noconfirm firefox openssh htop nmon p7zip ripgrep unzip pacman-contrib pulseaudio
 
 echo "Installing fonts"
-sudo pacman -S --needed --noconfirm ttf-roboto ttf-droid ttf-opensans ttf-dejavu ttf-liberation ttf-hack noto-fonts ttf-fira-code cantarell-fonts
+sudo pacman -S --needed --noconfirm ttf-roboto ttf-droid ttf-opensans ttf-dejavu ttf-liberation ttf-hack noto-fonts ttf-fira-code ttf-fira-sans cantarell-fonts
 
 echo "Setup XDG folders"
 mkdir -p $XDG_DATA_HOME

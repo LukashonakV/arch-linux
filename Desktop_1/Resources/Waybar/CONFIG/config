@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "custom/trashcan", "disk", "sway/mode", "custom/media", "sway/window"],
 //    "modules-center": ["sway/window"],
-    "modules-right": ["network#speed", "custom/weather", "custom/cpu", "custom/sysupdates", "custom/currencies", "network", "pulseaudio", "cpu", "memory", "temperature", "battery"],
+    "modules-right": ["network#speed", "custom/weather", "custom/cpu", "custom/sysupdates", "custom/currencies", "network", "pulseaudio", "cpu", "memory", "temperature", "battery", "tray"],
 //    "modules-right": ["mpd", "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "battery", "battery#bat2", "clock", "tray"],
     // Modules configuration
     // "sway/workspaces": {
@@ -40,12 +40,12 @@
         }
     },
     "sway/window": {
-        "format": "  |  {}",
+        "format": "|{}",
         "max-length": 50,
         "tooltip": true
     },
     "sway/mode": {
-        "format": "  |  <span style=\"italic\">{}</span>"
+        "format": "|<span style=\"italic\">{}</span>"
     },
     "mpd": {
         "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
@@ -90,18 +90,18 @@
         "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
-        "format": " | {usage}% ",
+        "format": "|{usage}%",
 		"interval": 5,
         "tooltip": true
     },
     "disk": {
        "interval": 3,
-       "format": "  |  {free}",
+       "format": "|{free}",
        "path": "/home",
 	   "tooltip": true
     },
     "memory": {
-        "format": " | {}% ",
+        "format": "|{}%",
         "interval": 5,
         "tooltip": true
     },
@@ -110,7 +110,7 @@
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 84,
         // "format-critical": "{temperatureC}°C {icon}",
-        "format": " | {temperatureC}°C {icon}",
+        "format": "|{temperatureC}°C{icon}",
         "format-icons": ["", "", ""],
         "tooltip": true
     },
@@ -126,10 +126,10 @@
             "warning": 30,
             "critical": 15
         },
-        "format": " | {capacity}% {icon}",
-        "format-charging": " | {capacity}% ",
-        "format-plugged": " | {capacity}% ",
-        "format-alt": " | {time} {icon}",
+        "format": "|{capacity}%{icon}",
+        // "format-charging": " | {capacity}% ",
+        "format-plugged": "|{capacity}%",
+        "format-alt": "|{time}{icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": ["", "", "", "", ""],
@@ -141,28 +141,28 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "interval": 10,
-        "format-wifi": " | {ipaddr} {icon}",
-//        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": " | {ifname}: {ipaddr}/{cidr} ",
-        "format-linked": " | {ifname} (No IP) ",
-        "format-disconnected": " | Disconnected ⚠",
-        "format-alt": " | {ifname}: {ipaddr}/{cidr}",
+        "format-wifi": "|{ipaddr}{icon}",
+//        "format-wifi": "{essid}({signalStrength}%)",
+        "format-ethernet": "|{ifname}:{ipaddr}/{cidr}",
+        "format-linked": "|{ifname}(No IP)",
+        "format-disconnected": "|Disconnected⚠",
+        "format-alt": "|{ifname}:{ipaddr}/{cidr}",
         "format-icons": {
             "wifi": ["","",""]
         }
     },
     "network#speed": {
         "interval": 3,
-        "format": "{bandwidthDownBits}  {bandwidthUpBits}"
+        "format": " {bandwidthDownBits}  {bandwidthUpBits}"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": " | {volume}% {icon} {format_source}",
-        "format-bluetooth": " | {volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " |  {icon} {format_source}",
-        "format-muted": " |  {format_source}",
-        "format-source": " | {volume}% ",
-        "format-source-muted": " | ",
+        "format": "|{volume}%{icon}{format_source}",
+        "format-bluetooth": "|{volume}%{icon}{format_source}",
+        "format-bluetooth-muted": "|{icon}{format_source}",
+        "format-muted": "|{format_source}",
+        "format-source": "|{volume}%",
+        "format-source-muted": "|",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -175,7 +175,7 @@
         "on-click": "pavucontrol"
     },
     "custom/media": {
-        "format": "{icon} {}",
+        "format": "{icon}{}",
         "return-type": "json",
         "max-length": 40,
         "format-icons": {
@@ -187,28 +187,28 @@
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     },
 	"custom/cpu": {
-		"format": " | {}",
+		"format": "|{}",
 		"interval": 5,
 		"exec": "cat /proc/loadavg | cut -d ' ' -f 1-3"
 	},
     "custom/currencies": {
-        "format": " | {}",
+        "format": "|{}",
         "interval": 10,
         "exec": "$XDG_DATA_HOME/waybar/getCurrency.sh USD EUR"
     },
     "custom/sysupdates": {
-        "format": " | {}",
+        "format": "|{}",
         "exec": "$XDG_DATA_HOME/waybar/updates-pacman-aurhelper.sh",
         "interval": 30
     },
     "custom/trashcan": {
-        "format": "|    {}",
+        "format": "| {}",
         "interval": 2,
         "exec": "trash-list | wc -l",
         "on-click-right": "trash-empty"
     },
     "custom/weather": {
-        "format": " | {}",
+        "format": "|{}",
         "exec": "$XDG_DATA_HOME/waybar/openweathermap-fullfeatured.sh",
         "interval": 600
     }

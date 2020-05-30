@@ -27,8 +27,8 @@ shift
 while [ -n "$1" ]
 do
     getRate $1 tempresult temptooltip
-    result+="  |  $tempresult"
-    tooltip+="  |  $temptooltip"
+    result+="|$tempresult"
+    tooltip+="|$temptooltip"
     shift
 done
 
