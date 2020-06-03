@@ -200,7 +200,8 @@
     "custom/sysupdates": {
         "format": "|{}",
         "exec": "$XDG_DATA_HOME/waybar/updates-pacman-aurhelper.sh",
-        "interval": 30
+        "exec-if": "$XDG_DATA_HOME/waybar/updates-pacman-aurhelper.sh",
+        "interval": 1800
     },
     "custom/trashcan": {
         "format": "| {}",
