@@ -194,7 +194,7 @@
 	},
     "custom/currencies": {
         "format": "|{}",
-        "interval": 10,
+        "interval": 1800,
         "exec": "$XDG_DATA_HOME/waybar/getCurrency.sh USD EUR"
     },
     "custom/sysupdates": {
