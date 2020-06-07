@@ -14,7 +14,9 @@ fi
 
 # updates=$(("$updates_arch" + + "$updates_aur"))
 
-printf " P:$updates_arch Y:$updates_aur\npacman:yay\nsysupdates"
+if [[ $updates_arch -gt 0 ]] || [[ $updates_aur -gt 0 ]]; then
+    printf " P:$updates_arch Y:$updates_aur\npacman:yay\nsysupdates"
+fi
 
 #if [ "$updates" -gt 0 ]; then
 #    echo "# $updates"
